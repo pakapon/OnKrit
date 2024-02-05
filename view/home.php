@@ -36,6 +36,10 @@ switch ($_GET["page"]) {
         $active[2] = 1;
         $subactive[22] = 1;
         break;
+    case "addSolar":
+        $active[3] = 1;
+        $subactive[31] = 1;
+        break;
     case "addProduct":
         $active[4] = 1;
         $subactive[41] = 1;
@@ -198,11 +202,11 @@ switch ($_GET["page"]) {
                                         <div class="collapse menu-dropdown <?php echo $active[3] == 1 ? 'show' : ''; ?>" id="sidebarCrm">
                                             <ul class="nav nav-sm flex-column">
                                                 <li class="nav-item">
-                                                    <a href="project-add-solar.html" class="nav-link fs-14" data-key="t-level-3.1"> เพิ่มโครงการโซลาร์เซลล์
+                                                    <a href="home.php?page=addSolar" class="nav-link fs-14 <?php echo $subactive[31] == 1 ? 'active' : ''; ?>"  data-key="t-level-3.1"> เพิ่มโครงการโซลาร์เซลล์
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="project-add-ev.html" class="nav-link fs-14" data-key="t-level-3.2"> เพิ่มโครงการอีวีชาร์จเจอร์
+                                                    <a href="home.php?page=addSolar" class="nav-link fs-14 <?php echo $subactive[32] == 1 ? 'active' : ''; ?>"  data-key="t-level-3.2"> เพิ่มโครงการอีวีชาร์จเจอร์
                                                     </a>
                                                 </li>
                                             </ul>
@@ -240,10 +244,10 @@ switch ($_GET["page"]) {
                             <div class="collapse menu-dropdown <?php echo $active[5] == 1 ? 'show' : ''; ?>" id=" sidebarApps6">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="guarantee-doc.html" class="nav-link fs-15 " data-key="t-api-key">พิมพ์ใบรับประกัน</a>
+                                        <a href="home.php?page=addSolar" class="nav-link fs-15 <?php echo $subactive[51] == 1 ? 'active' : ''; ?>" data-key="t-api-key">พิมพ์ใบรับประกัน</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="report-service.html" class="nav-link fs-14 " data-key="t-api-key">พิมพ์รายงานบริการ</a>
+                                        <a href="home.php?page=addSolar" class="nav-link fs-14 <?php echo $subactive[52] == 1 ? 'active' : ''; ?>" data-key="t-api-key">พิมพ์รายงานบริการ</a>
                                     </li>
                                 </ul>
                             </div>
@@ -293,6 +297,9 @@ switch ($_GET["page"]) {
                 break;
             case "addProductType":
                 include 'product/addProductType.php';
+                break;
+            case "addSolar":
+                include 'project/addSolar.php';
                 break;
                 // สามารถเพิ่ม case อื่นๆ ตามที่ต้องการ
 
