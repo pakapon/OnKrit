@@ -13,7 +13,7 @@ if (!empty($_POST['catName'])) {
     $create = $proService->createCategory($data);
 
 ?>
-    <div class="modal fade bs-example-modal-center show" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block;">
+    <div class="modal fade bs-example-modal-center show"  style="display: block;background-color: #000000e8; " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block;">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body text-center p-5">
@@ -34,7 +34,7 @@ if ($_GET["delete"] == 1) {
     $data->catID  = $_GET['id'];
     $create = $proService->deleteCategory($data);
     ?>
-    <div class="modal fade bs-example-modal-center show" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block;">
+    <div class="modal fade bs-example-modal-center show"  style="display: block;background-color: #000000e8; " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block;">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body text-center p-5">
@@ -141,23 +141,6 @@ if ($_GET["delete"] == 1) {
                     </div>
                 </div>
             </div>
-            <!--end row-->
-            <!-- modal-content -->
-            <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-body text-center p-5">
-                            <div>
-                                <h4 class="mb-4">คุณต้องการยืนยันการทำรายการหรือไม่?</h4>
-                                <div class="hstack gap-2 justify-content-center">
-                                    <button type="button" class="btn btn-light fs-18" data-bs-dismiss="modal">ยกเลิก</button>
-                                    <a href="javascript:void(0);" class="btn btn-primary fs-18">ยืนยันการทำรายการ</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
         </div>
         <!-- container-fluid -->
     </div>

@@ -16,28 +16,76 @@ class ProjectService
 
         $query = "INSERT INTO `$table_pj`
                     SET
-                        `proName`   = :proName,
-                        `proName`   = :proName,
-                        `proName`   = :proName,
-                        `proName`   = :proName,
-                        `proName`   = :proName,
-                        `proName`   = :proName,
-                        `proName`   = :proName,
-                        `proName`   = :proName,
-                        `proName`   = :proName,
-                        `proCreate` = now(),
-                        `proUpdate` = now()
+                        `pojCus` = :pojCus,
+                        `pojStatus` = :pojStatus,
+                        `pojDocStatus` = :pojDocStatus,
+                        `pojImage` = :pojImage,
+                        `pojFile` = :pojFile,
+                        `pojPDF` = :pojPDF,
+                        `pojName` = :pojName,
+                        `pojType` = :pojType,
+                        `pojCODE` = :pojCODE,
+                        `pojVoidID` = :pojVoidID,
+                        `pojContractID` = :pojContractID,
+                        `pojPost` = :pojPost,
+                        `pojTumbol` = :pojTumbol,
+                        `pojAumper` = :pojAumper,
+                        `pojProvince` = :pojProvince,
+                        `pojAddr` = :pojAddr,
+                        `pojGlo` = :pojGlo,
+                        `pojWarranty` = :pojWarranty,
+                        `pojStartWarranty` = :pojStartWarranty,
+                        `pojEndWarranty` = :pojEndWarranty,
+                        `pojPhase` = :pojPhase,
+                        `pojSystem` = :pojSystem,
+                        `pojWp` = :pojWp,
+                        `pojPhaseQty` = :pojPhaseQty,
+                        `pojTotalWatt` = :pojTotalWatt,
+                        `pojRemark` = :pojRemark,
+                        `pojProductWaranty` = :pojProductWaranty,
+                        `pojProductStartWaranty` = :pojProductStartWaranty,
+                        `pojProductEndWaranty` = :pojProductEndWaranty,
+                        `pojProduct` = :pojProduct,
+                        `pojProductQty` = :pojProductQty,
+                        `pojCreate` = now(),
+                        `pojUpdate` = now()
         ";
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(':proName', $data->proName);
-        $stmt->bindParam(':proName', $data->proName);
-        $stmt->bindParam(':proName', $data->proName);
-        $stmt->bindParam(':proName', $data->proName);
-        $stmt->bindParam(':proName', $data->proName);
-        $stmt->bindParam(':proName', $data->proName);
-        $stmt->bindParam(':proName', $data->proName);
-        $stmt->bindParam(':proName', $data->proName);
+        $stmt->bindParam(':pojCus', $data->pojCus);
+        $stmt->bindParam(':pojStatus', $data->pojStatus);
+        $stmt->bindParam(':pojDocStatus', $data->pojDocStatus);
+        $stmt->bindParam(':pojImage', $data->pojImage);
+        $stmt->bindParam(':pojFile', $data->pojFile);
+        $stmt->bindParam(':pojPDF', $data->pojPDF);
+        $stmt->bindParam(':pojName', $data->pojName);
+        $stmt->bindParam(':pojType', $data->pojType);
+        $stmt->bindParam(':pojCODE', $data->pojCODE);
+        $stmt->bindParam(':pojVoidID', $data->pojVoidID);
+        $stmt->bindParam(':pojContractID', $data->pojContractID);
+        $stmt->bindParam(':pojPost', $data->pojPost);
+        $stmt->bindParam(':pojTumbol', $data->pojTumbol);
+        $stmt->bindParam(':pojAumper', $data->pojAumper);
+        $stmt->bindParam(':pojProvince', $data->pojProvince);
+        $stmt->bindParam(':pojAddr', $data->pojAddr);
+        $stmt->bindParam(':pojGlo', $data->pojGlo);
+        $stmt->bindParam(':pojWarranty', $data->pojWarranty);
+        $stmt->bindParam(':pojStartWarranty', $data->pojStartWarranty);
+        $stmt->bindParam(':pojEndWarranty', $data->pojEndWarranty);
+        $stmt->bindParam(':pojPhase', $data->pojPhase);
+        $stmt->bindParam(':pojSystem', $data->pojSystem);
+        $stmt->bindParam(':pojWp', $data->pojWp);
+        $stmt->bindParam(':pojPhaseQty', $data->pojPhaseQty);
+        $stmt->bindParam(':pojTotalWatt', $data->pojTotalWatt);
+        $stmt->bindParam(':pojRemark', $data->pojRemark);
+        $stmt->bindParam(':pojProductWaranty', $data->pojProductWaranty);
+        $stmt->bindParam(':pojProductStartWaranty', $data->pojProductStartWaranty);
+        $stmt->bindParam(':pojProductEndWaranty', $data->pojProductEndWaranty);
+        $stmt->bindParam(':pojProduct', $data->pojProduct);
+        $stmt->bindParam(':pojProductQty', $data->pojProductQty);
+        
+        echo $data->pojStartWarranty;
+        echo $data->pojProductStartWaranty;
 
         if ($stmt->execute()) {
             return "บันทึกข้อมูลสำเร็จ";

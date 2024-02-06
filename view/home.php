@@ -2,7 +2,7 @@
 session_start();
 if (empty($_SESSION['token'])) {
 ?>
-    <div class="modal fade bs-example-modal-center show" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block;">
+    <div class="modal fade bs-example-modal-center show" style="display: block;background-color: #000000e8; " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block;">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body text-center p-5">
@@ -40,6 +40,13 @@ switch ($_GET["page"]) {
         $active[3] = 1;
         $subactive[31] = 1;
         break;
+    case "addVE":
+        $active[3] = 1;
+        $subactive[32] = 1;
+    case "listProject":
+        $active[3] = 1;
+        $subactive[33] = 1;
+        break;
     case "addProduct":
         $active[4] = 1;
         $subactive[41] = 1;
@@ -56,9 +63,12 @@ switch ($_GET["page"]) {
         $active[4] = 1;
         $subactive[43] = 1;
         break;
+    case "dockStore":
+        $active[6] = 1;
+        break;
         // สามารถเพิ่ม case อื่นๆ ตามที่ต้องการ
     default:
-        $active[6] = 1;
+        $active[1] = 1;
         // สามารถใส่โค้ดสำหรับการจัดการเมื่อไม่ตรงกับ case ใดๆ
         break;
 }
@@ -76,6 +86,18 @@ switch ($_GET["page"]) {
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
 
+    <!-- One of the following themes -->
+    <link rel="stylesheet" href="assets/libs/@simonwep/pickr/themes/classic.min.css" /> <!-- 'classic' theme -->
+    <link rel="stylesheet" href="assets/libs/@simonwep/pickr/themes/monolith.min.css" /> <!-- 'monolith' theme -->
+    <link rel="stylesheet" href="assets/libs/@simonwep/pickr/themes/nano.min.css" /> <!-- 'nano' theme -->
+
+    <!--datatable css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
+    <!--datatable responsive css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+
     <!-- Layout config Js -->
     <script src="assets/js/layout.js"></script>
     <!-- Bootstrap Css -->
@@ -86,6 +108,10 @@ switch ($_GET["page"]) {
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="assets/css/custom.css" rel="stylesheet" type="text/css" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
 
 
 </head>
@@ -202,11 +228,11 @@ switch ($_GET["page"]) {
                                         <div class="collapse menu-dropdown <?php echo $active[3] == 1 ? 'show' : ''; ?>" id="sidebarCrm">
                                             <ul class="nav nav-sm flex-column">
                                                 <li class="nav-item">
-                                                    <a href="home.php?page=addSolar" class="nav-link fs-14 <?php echo $subactive[31] == 1 ? 'active' : ''; ?>"  data-key="t-level-3.1"> เพิ่มโครงการโซลาร์เซลล์
+                                                    <a href="home.php?page=addSolar" class="nav-link fs-14 <?php echo $subactive[31] == 1 ? 'active' : ''; ?>" data-key="t-level-3.1"> เพิ่มโครงการโซลาร์เซลล์
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="home.php?page=addSolar" class="nav-link fs-14 <?php echo $subactive[32] == 1 ? 'active' : ''; ?>"  data-key="t-level-3.2"> เพิ่มโครงการอีวีชาร์จเจอร์
+                                                    <a href="home.php?page=addVE" class="nav-link fs-14 <?php echo $subactive[32] == 1 ? 'active' : ''; ?>" data-key="t-level-3.2"> เพิ่มโครงการอีวีชาร์จเจอร์
                                                     </a>
                                                 </li>
                                             </ul>
@@ -214,7 +240,7 @@ switch ($_GET["page"]) {
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="project-list.html" class="nav-link fs-15   " data-key="t-api-key">รายการโครงการ</a>
+                                        <a href="home.php?page=listProject" class="nav-link fs-15 <?php echo $subactive[33] == 1 ? 'active' : ''; ?>" data-key="t-api-key">รายการโครงการ</a>
                                     </li>
                                 </ul>
                             </div>
@@ -244,16 +270,16 @@ switch ($_GET["page"]) {
                             <div class="collapse menu-dropdown <?php echo $active[5] == 1 ? 'show' : ''; ?>" id=" sidebarApps6">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="home.php?page=addSolar" class="nav-link fs-15 <?php echo $subactive[51] == 1 ? 'active' : ''; ?>" data-key="t-api-key">พิมพ์ใบรับประกัน</a>
+                                        <a href="home.php?page=222" class="nav-link fs-15 <?php echo $subactive[51] == 1 ? 'active' : ''; ?>" data-key="t-api-key">พิมพ์ใบรับประกัน</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="home.php?page=addSolar" class="nav-link fs-14 <?php echo $subactive[52] == 1 ? 'active' : ''; ?>" data-key="t-api-key">พิมพ์รายงานบริการ</a>
+                                        <a href="home.php?page=2222" class="nav-link fs-14 <?php echo $subactive[52] == 1 ? 'active' : ''; ?>" data-key="t-api-key">พิมพ์รายงานบริการ</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link <?php echo $active[6] == 1 ? 'active' : ''; ?>" href="doc-add.html">
+                            <a class="nav-link menu-link <?php echo $active[6] == 1 ? 'active' : ''; ?>" href="home.php?page=dockStore">
                                 <i data-feather="book" class="icon-dual"></i> <span data-key="t-widgets">คลังเอกสาร</span>
                             </a>
                         </li>
@@ -301,6 +327,15 @@ switch ($_GET["page"]) {
             case "addSolar":
                 include 'project/addSolar.php';
                 break;
+            case "addVE":
+                include 'project/addSolar.php';
+                break;
+            case "listProject":
+                include 'project/listProject.php';
+                break;
+            case "dockStore":
+                include 'documentstore/dockStore.php';
+                break;
                 // สามารถเพิ่ม case อื่นๆ ตามที่ต้องการ
 
             default:
@@ -328,8 +363,42 @@ switch ($_GET["page"]) {
         <script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
         <script src="assets/js/plugins.js"></script>
 
+
+        <!-- Modern colorpicker bundle -->
+        <script src="assets/libs/@simonwep/pickr/pickr.min.js"></script>
+
+        <!-- init js -->
+        <script src="assets/js/pages/form-pickers.init.js"></script>
+
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+        
+    <!-- JAVASCRIPT -->
+    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="assets/libs/node-waves/waves.min.js"></script>
+    <script src="assets/libs/feather-icons/feather.min.js"></script>
+    <script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="assets/js/plugins.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!--datatable js-->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+    <script src="assets/js/pages/datatables.init.js"></script>
+    <!-- App js -->
+    <script src="assets/js/app.js"></script>
+
+
 </body>
 
 </html>

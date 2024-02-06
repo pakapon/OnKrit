@@ -9,6 +9,7 @@ $table_cu           = 'customer';
 $table_ct           = 'category';
 $table_po           = 'product';
 $table_pj           = 'project';
+$table_st           = 'documentstore';
 
 $setWeburl[0]   = "127.0.0.1:8005";
 $setWeburl[1]   = "127.0.0.1:8005";
