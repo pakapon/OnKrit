@@ -101,6 +101,11 @@ class ProjectService
         echo $data->pojStartWarranty;
         // echo $data->pojProductStartWaranty;
 
+    // pojServiceDate
+    // pojServiceTopic
+    // pojServicePrices
+    // pojServiceStatus
+
         if ($stmt->execute()) {
             return "บันทึกข้อมูลสำเร็จ";
         } else {
