@@ -150,3 +150,24 @@ function uploadFilesPS($filesArray) {
 
     return null;
 }
+
+function grouptext($inputArray) {
+    // ตรวจสอบว่า $inputArray เป็นอาร์เรย์และมีมากกว่า 1 ค่าหรือไม่
+    if (is_array($inputArray) && count($inputArray) > 1) {
+        // ถ้ามีหลายค่า, ใช้ implode ในการรวมค่าเหล่านั้นเข้าด้วยกันด้วย ","
+        return implode(", ", $inputArray);
+    } elseif (is_array($inputArray) && count($inputArray) == 1) {
+        // ถ้ามีค่าเดียวในอาร์เรย์, return ค่านั้นโดยตรง
+        return $inputArray[0];
+    }
+    // ถ้าไม่ใช่อาร์เรย์หรือไม่มีค่า, return สตริงว่าง
+    return "";
+}
+
+function convertDateToDBFormat($dateString) {
+    // สร้าง DateTime object จาก string โดยใช้รูปแบบที่กำหนด
+    $date = DateTime::createFromFormat('d M, Y', $dateString);
+    
+    // แปลง DateTime object เป็น string ในรูปแบบที่ต้องการสำหรับฐานข้อมูล
+    return $date->format('Y-m-d');
+}

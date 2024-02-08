@@ -98,7 +98,7 @@ class ProjectService
         $stmt->bindParam(':pojListStartWarranty', $data->pojListStartWarranty);
         $stmt->bindParam(':pojListEndWarranty', $data->pojListEndWarranty);
 
-        // echo $data->pojStartWarranty;
+        echo $data->pojStartWarranty;
         // echo $data->pojProductStartWaranty;
 
         if ($stmt->execute()) {

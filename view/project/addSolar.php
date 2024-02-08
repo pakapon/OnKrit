@@ -46,8 +46,8 @@ if (!empty($_POST['pojName'])) {
     $data->pojAddr = $_POST["pojAddr"];
     $data->pojGlo = $_POST["pojGlo"];
     $data->pojWarranty = $_POST["pojWarranty"];
-    $data->pojStartWarranty = $_POST["pojStartWarranty"];
-    $data->pojEndWarranty = $_POST["pojEndWarranty"];
+    $data->pojStartWarranty = convertDateToDBFormat($_POST["pojStartWarranty"]);
+    $data->pojEndWarranty = convertDateToDBFormat($_POST["pojEndWarranty"]);
     $data->pojPhase = $_POST["pojPhase"];
     $data->pojSystem = $_POST["pojSystem"];
     $data->pojWp = $_POST["pojWp"];
@@ -55,17 +55,15 @@ if (!empty($_POST['pojName'])) {
     $data->pojTotalWatt = $_POST["pojTotalWatt"];
     $data->pojRemark = $_POST["pojRemark"];
     $data->pojProductWaranty = $_POST["pojProductWaranty"];
-    $data->pojProductStartWaranty = '2024-02-06';
-    $_POST["pojProductStartWaranty"];
-    $data->pojProductEndWaranty = '2024-02-06';
-    $_POST["pojProductEndWaranty"];
+    $data->pojProductStartWaranty = convertDateToDBFormat($_POST["pojProductStartWaranty"]);
+    $data->pojProductEndWaranty = convertDateToDBFormat($_POST["pojProductEndWaranty"]);
     $data->pojProduct = $_POST["pojProduct"];
     $data->pojProductQty = $_POST["pojProductQty"];
-    $data->pojListProduct = $_POST["pojListProduct"];
-    $data->pojListLot = $_POST["pojListLot"];
-    $data->pojListSerial = $_POST["pojListSerial"];
-    $data->pojListStartWarranty = $_POST["pojListStartWarranty"];
-    $data->pojListEndWarranty = $_POST["pojListEndWarranty"];
+    $data->pojListProduct = grouptext($_POST["pojListProduct"]);
+    $data->pojListLot = grouptext($_POST["pojListLot"]);
+    $data->pojListSerial = grouptext($_POST["pojListSerial"]);
+    $data->pojListStartWarranty = grouptext($_POST["pojListStartWarranty"]);
+    $data->pojListEndWarranty = grouptext($_POST["pojListEndWarranty"]);
 
     $create = $prjService->createProject($data);
     $data = null;
@@ -592,7 +590,7 @@ if (!empty($_POST['pojName'])) {
                         <div class="modal-content">
                             <div class="modal-body text-center p-5">
                                 <div>
-                                    <h4 class="mb-4">คุณต้องการยืนยันการทำรายการหรือไม่?</h4>
+                                    <h4 class="mb-4">คุณต้องการยืนยันการทำรายการหรือไม่ ?</h4>
                                     <div class="hstack gap-2 justify-content-center">
                                         <button type="button" class="btn btn-light fs-18"
                                             data-bs-dismiss="modal">ยกเลิก</button>
@@ -624,12 +622,26 @@ if (!empty($_POST['pojName'])) {
                     </div>
                 </div>
 
+                <div class="modal fade bs-example-modal-center3" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel2" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body text-center p-5">
+                                <div>
+                                    <h4 class="mb-4">คุณต้องการยืนยันการทำรายการหรือไม่ ?</h4>
+                                    <div class="hstack gap-2 justify-content-center">
+                                        <button type="button" class="btn btn-light fs-18" data-bs-dismiss="modal">ยกเลิก</button>
+                                        <a href="#" class="btn btn-primary fs-18" data-bs-dismiss="modal" onclick="simulateButtonClick(); return false;">ยืนยันการทำรายการ</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 
 
-                <div class="modal fade bs-example-modal-center2" tabindex="-1" role="dialog"
-                    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal fade bs-example-modal-center2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-body text-center p-5">
@@ -1021,4 +1033,11 @@ function deleteServiceRow() {
 
     });
 }
+
+    }
+
+    function simulateButtonClick() {
+        document.getElementById('submitBtn').click();
+    }
+
 </script>
