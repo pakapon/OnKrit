@@ -47,9 +47,17 @@ class ProjectService
                         `pojProductEndWaranty` = :pojProductEndWaranty,
                         `pojProduct` = :pojProduct,
                         `pojProductQty` = :pojProductQty,
+
+                        `pojListProduct` = :pojListProduct,
+                        `pojListLot` = :pojListLot,
+                        `pojListSerial` = :pojListSerial,
+                        `pojListStartWarranty` = :pojListStartWarranty,
+                        `pojListEndWarranty` = :pojListEndWarranty,
+
                         `pojCreate` = now(),
                         `pojUpdate` = now()
         ";
+
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam(':pojCus', $data->pojCus);
@@ -83,9 +91,15 @@ class ProjectService
         $stmt->bindParam(':pojProductEndWaranty', $data->pojProductEndWaranty);
         $stmt->bindParam(':pojProduct', $data->pojProduct);
         $stmt->bindParam(':pojProductQty', $data->pojProductQty);
-        
-        echo $data->pojStartWarranty;
-        echo $data->pojProductStartWaranty;
+
+        $stmt->bindParam(':pojListProduct', $data->pojListProduct);
+        $stmt->bindParam(':pojListLot', $data->pojListLot);
+        $stmt->bindParam(':pojListSerial', $data->pojListSerial);
+        $stmt->bindParam(':pojListStartWarranty', $data->pojListStartWarranty);
+        $stmt->bindParam(':pojListEndWarranty', $data->pojListEndWarranty);
+
+        // echo $data->pojStartWarranty;
+        // echo $data->pojProductStartWaranty;
 
         if ($stmt->execute()) {
             return "บันทึกข้อมูลสำเร็จ";
