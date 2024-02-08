@@ -776,16 +776,19 @@ function createHtmlProductRow(rowNumber, productListsOptionHtml_) {
                         <th scope="row">${rowNumber}</th>
                         <td>
                             <select class="form-control1 form-control-sm fs-12"
+                                id='pojListProduct' name='pojListProduct'
                                 aria-label="Default select example">
                                 ${productListsOptionHtml_}
                             </select>
                         </td>
                         <td>
                             <input class="form-control1 form-control-sm fs-12 lotno"
+                                id='pojListLot' name='pojListLot'
                                 type="text" placeholder="-" data-lotno="${rowNumber}">
                         </td>
                         <td>
                             <input class="form-control1 form-control-sm fs-12 serialno"
+                                id='pojListSerial' name='pojListSerial'
                                 type="text" placeholder="122326051146" data-serialno="${rowNumber}">
                         </td>
                         <td>
@@ -793,6 +796,7 @@ function createHtmlProductRow(rowNumber, productListsOptionHtml_) {
                                 class="form-control1 form-control-sm fs-12 flatpickr-input"
                                 data-provider="flatpickr"
                                 data-date-format="d M, Y" readonly="readonly"
+                                id='pojListStartWarranty' name='pojListStartWarranty'
                                 placeholder="24-01-2024" value="${pojProductStartWaranty}">
                         </td>
                         <td>
@@ -800,6 +804,7 @@ function createHtmlProductRow(rowNumber, productListsOptionHtml_) {
                                 class="form-control1 form-control-sm fs-12 flatpickr-input"
                                 data-provider="flatpickr"
                                 data-date-format="d M, Y" readonly="readonly"
+                                id='pojListEndWarranty' name='pojListEndWarranty'
                                 placeholder="24-01-2024" value="${pojProductEndWaranty}">
                         </td>
                         <td>
