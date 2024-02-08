@@ -111,11 +111,13 @@ switch ($_GET["page"]) {
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
-
-
-
 </head>
 
+<!-- Popup ตารางวันที่ -->
+<div id="removeNotificationModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <body>
     <div id="layout-wrapper">
         <header id="page-topbar">
