@@ -129,7 +129,7 @@ if (!empty($_POST['proName'])) {
 
                                         <div class="flex-grow-1">
                                             <?php
-                                            $file = explode(",", $proFile);
+                                            $file = explode("|", $proFile);
                                             foreach ($file as $fileData) {
                                                 echo '<h5 class="fs-13 mb-1"><a href="' . $fileData . '" class=" fs-16" target="_blank">#' . str_replace("../uploads/", "", $fileData) . '</a></h5>';
                                             }

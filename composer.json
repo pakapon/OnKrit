@@ -1,5 +1,7 @@
 {
     "require": {
-        "firebase/php-jwt": "^6.9"
+        "firebase/php-jwt": "^6.9",
+        "endroid/qr-code": "^5.0",
+        "dompdf/dompdf": "^2.0"
     }
 }

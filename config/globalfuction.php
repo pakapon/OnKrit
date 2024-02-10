@@ -1,4 +1,21 @@
 <?php
+require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
+
+function GenQr($text) {
+    $qrCode = QrCode::create($text)
+        ->setSize(100)
+        ->setMargin(10)
+        ->setForegroundColor(new Color(0, 0, 0))
+        ->setBackgroundColor(new Color(255, 255, 255));
+    $writer = new PngWriter();
+    $result = $writer->write($qrCode);
+    return $result->getDataUri();
+}
+
 function zero_num($number, $length)
 {
     $string = substr(str_repeat(0, $length) . $number, -$length);
@@ -57,14 +74,14 @@ function call_push_ms($token, $body)
         CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_POSTFIELDS => $body,
         CURLOPT_HTTPHEADER => array(
-            'Authorization: Bearer '.$token,
+            'Authorization: Bearer ' . $token,
             'Content-Type: application/json'
-          ),
-        ));
-        
-        $response = curl_exec($curl);
-        
-        curl_close($curl);  
+        ),
+    ));
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
     return $response;
 }
 
@@ -121,7 +138,8 @@ function checkNotEmpty($data, $message)
     }
 }
 
-function uploadFilesPS($filesArray) {
+function uploadFilesPS($filesArray)
+{
     $uploadedFiles = [];
 
     // ตรวจสอบว่าเป็นไฟล์เดี่ยวหรือหลายไฟล์
@@ -143,7 +161,7 @@ function uploadFilesPS($filesArray) {
 
     // ตรวจสอบจำนวนไฟล์ที่อัพโหลดสำเร็จ
     if (count($uploadedFiles) > 1) {
-        return implode(", ", $uploadedFiles);
+        return implode("| ", $uploadedFiles);
     } elseif (count($uploadedFiles) == 1) {
         return $uploadedFiles[0];
     }
@@ -151,11 +169,12 @@ function uploadFilesPS($filesArray) {
     return null;
 }
 
-function grouptext($inputArray) {
+function grouptext($inputArray)
+{
     // ตรวจสอบว่า $inputArray เป็นอาร์เรย์และมีมากกว่า 1 ค่าหรือไม่
     if (is_array($inputArray) && count($inputArray) > 1) {
         // ถ้ามีหลายค่า, ใช้ implode ในการรวมค่าเหล่านั้นเข้าด้วยกันด้วย ","
-        return implode(", ", $inputArray);
+        return implode("| ", $inputArray);
     } elseif (is_array($inputArray) && count($inputArray) == 1) {
         // ถ้ามีค่าเดียวในอาร์เรย์, return ค่านั้นโดยตรง
         return $inputArray[0];
@@ -164,10 +183,52 @@ function grouptext($inputArray) {
     return "";
 }
 
-function convertDateToDBFormat($dateString) {
-    // สร้าง DateTime object จาก string โดยใช้รูปแบบที่กำหนด
+function convertDateToDBFormat($dateString)
+{
     $date = DateTime::createFromFormat('d M, Y', $dateString);
-    
-    // แปลง DateTime object เป็น string ในรูปแบบที่ต้องการสำหรับฐานข้อมูล
     return $date->format('Y-m-d');
+}
+
+function convertDateStToDMY($dateString)
+{
+    $date = DateTime::createFromFormat('d M, Y', $dateString);
+    return $date->format('d-m-Y');
+}
+
+function convertDBFormatToDate($dateFromDB)
+{
+    $date = DateTime::createFromFormat('Y-m-d', $dateFromDB);
+    if ($date) {
+        return $date->format('d M, Y');
+    } else {
+        return false;
+    }
+}
+
+function getStatusButton($status)
+{
+    switch ($status) {
+        case 'ดำเนินการ':
+            return '<button type="button" class="btn rounded-pill btn-warning waves-effect waves-light">เสร็จสิ้น</button>';
+        case 'เสร็จสิ้น':
+            return '<button type="button" class="btn rounded-pill btn-success waves-effect waves-light">เสร็จสิ้น</button>';
+        case 'ยกเลิก':
+            return '<button type="button" class="btn rounded-pill btn-danger waves-effect waves-light">ยกเลิก</button>';
+        default:
+            return '';
+    }
+}
+
+function getStatuColor($status)
+{
+    switch ($status) {
+        case 'รอดำเนินการ':
+            return 'warning';
+        case 'ดำเนินการเสร็จสิ้น':
+            return 'success';
+        case 'ยกเลิก':
+            return 'danger';
+        default:
+            return '';
+    }
 }

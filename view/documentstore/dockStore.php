@@ -148,7 +148,7 @@ if ($_GET["delete"] == 1) {
                                                             <td><?= $row["dstName"] ?></td>
                                                             <td>
                                                                 <?php
-                                                                $file = explode(",", $fileData);
+                                                                $file = explode("|", $fileData);
                                                                 foreach ($file as $fileData) {
                                                                     echo '<h5 class="fs-13 mb-1"><a href="' . $fileData . '" class=" fs-16" target="_blank">#' . str_replace("../uploads/", "", $fileData) . '<i class="ri-file-download-line text-danger"></i></a></h5>';
                                                                 }
