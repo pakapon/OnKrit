@@ -41,10 +41,6 @@ $data = null;
 
             <div class="row">
                 <div class="col-lg-12">
-
-
-
-
                     <div class="card">
                         <div class="card-body">
                             <table id="alternative-pagination"
@@ -90,7 +86,6 @@ $data = null;
                                                 $cusTell = $row_c['cusTell'];
                                                 $cusMail = $row_c['cusMail'];
                                                 $cusAddr = $row_c['cusAddr'] . " " . $row_c['cusTumbol'] . " " . $row_c['cusAumper'] . " " . $row_c['cusProvince'] . " " . $row_c['cusPost'];
-
                                             }
                                             $result_c = null;
 
@@ -104,8 +99,7 @@ $data = null;
                                         <td><?= $cusMail ?></td>
                                         <td><?= $cusAddr ?></td>
                                         <td>
-                                            <a type="button"
-                                                href="file:///D:/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%94%E0%B8%B9%E0%B9%81%E0%B8%A5%E0%B9%80%E0%B8%9E%E0%B8%88-%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A/%E0%B8%88%E0%B8%B9%E0%B8%99/%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A%E0%B8%88%E0%B8%B9%E0%B8%99%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%82%E0%B8%B2%E0%B8%A2/%E0%B9%80%E0%B8%AD%E0%B8%81%E0%B8%AA%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B1%E0%B8%99/Book35.pdf"
+                                            <a type="button" href="./pdf/servicelist.php?id=<?= $pojID ?>" target=”_blank”
                                                 class="btn btn-primary btn-label waves-effect waves-light"><i
                                                     class="ri-file-edit-line label-icon align-middle fs-16 me-2"></i>
                                                 ดาวน์โหลด</a>
@@ -115,7 +109,7 @@ $data = null;
                                             $i++;
                                         }
                                         $result = null;
-                                    }?>
+                                    } ?>
 
                                 </tbody>
                             </table>

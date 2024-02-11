@@ -114,7 +114,7 @@ class ProjectService
             return "บันทึกข้อมูลไม่สำเร็จ";
         }
     }
-    
+
     public function editProject($data)
     {
         global $table_pj;
@@ -222,15 +222,32 @@ class ProjectService
         }
     }
 
-    public function viewProject($id = null)
+    public function viewProject($id = null, $data = null)
     {
         global $table_pj;
         $wid = null;
         if (isset($id)) {
             $wid = "WHERE `pojID` = $id ";
         }
+        $data->staus = $_POST["staus"];
+        $data->start = convertDateToDBFormat($_POST["start"]);
+        $data->end = convertDateToDBFormat($_POST["end"]);
+        $data->type = $_POST["type"];
 
-        $query = " SELECT * FROM `$table_pj` $wid ORDER BY `pojID` DESC";
+        if (!empty($data)) {
+            $where = " WHERE 1=1 ";
+            if ($data->staus) {
+                $where .= " AND `` = '$data->staus' ";
+            }
+            if ($data->start) {
+                $where .= " AND `` = '$data->start' AND '$data->end'";
+            }
+            if ($data->type) {
+                $where .= " AND `` = '$data->staus' ";
+            }
+        }
+
+        $query = " SELECT * FROM `$table_pj` $wid $where ORDER BY `pojID` DESC";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

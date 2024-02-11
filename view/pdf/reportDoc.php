@@ -10,7 +10,12 @@ $cusService = new CuntomerService($conn);
 $prjService = new ProjectService($conn);
 
 $data = null;
+$data = new stdClass;
 
+$data->staus = $_POST["staus"];
+$data->start = convertDateToDBFormat($_POST["start"]);
+$data->end = convertDateToDBFormat($_POST["end"]);
+$data->type = $_POST["type"];
 
 ?>
 
@@ -18,16 +23,12 @@ $data = null;
 <!-- Start right Content here -->
 <!-- ============================================================== -->
 <div class="main-content">
-
     <div class="page-content">
         <div class="container-fluid">
-
-            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0">รายงานการบริการ</h4>
-
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"></a></li>
@@ -37,75 +38,59 @@ $data = null;
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
-
-
             <div class="row">
-                <di class="row gy-4">
-
-
-                    <div class="col-xxl-3 col-md-8">
-                        <label for="exampleDataList" class="form-label fs-15 text-dark">สถานะ</label>
-                        <select class="form-control" aria-label="Default select example">
-                            <option selected>-เลือกสถานะ-</option>
-                            <option value="1">ดำเนินการ</option>
-                            <option value="2">เสร็จสิ้น</option>
-                            <option value="3">ยกเลิก</option>
-                        </select>
-                    </div>
-                    <div class="col-xxl-3 col-md-4 ">
-                        <label for="labelInput" class="form-label fs-15 text-dark">เริ่มเข้าบริการ</label>
-                        <input type="text" class="form-control flatpickr-input" data-provider="flatpickr"
-                            data-date-format="d M, Y" readonly="readonly">
-                    </div>
-                    <div class="col-xxl-3 col-md-4 ">
-                        <label for="labelInput" class="form-label fs-15 text-dark">หลังเข้าบริการ</label>
-                        <input type="text" class="form-control flatpickr-input" data-provider="flatpickr"
-                            data-date-format="d M, Y" readonly="readonly">
-                    </div>
-
-                    <div class="col-xxl-3 col-md-4 ">
-                        <label for="labelInput" class="form-label fs-15 text-dark">ประเภท</label>
-                        <div class="mt-4 mt-lg-0">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1">
-                                <label class="form-check-label fs-16 fw-medium" for="inlineCheckbox6">โซล่าร์</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option2">
-                                <label class="form-check-label fs-16 fw-medium" for="inlineCheckbox7">อีวีชาร์จ</label>
+                <form method="post" action="home.php?page=report" id="myForm">
+                    <div class="row gy-4">
+                        <div class="col-xxl-3 col-md-8">
+                            <label for="exampleDataList" class="form-label fs-15 text-dark">สถานะ</label>
+                            <select class="form-control" aria-label="Default select example" name="staus">
+                                <option value="">-เลือกสถานะ-</option>
+                                <option value="1" <?php if ($data->staus == 1) echo "selected"; ?>>ดำเนินการ</option>
+                                <option value="2" <?php if ($data->staus == 2) echo "selected"; ?>>เสร็จสิ้น</option>
+                                <option value="3" <?php if ($data->staus == 3) echo "selected"; ?>>ยกเลิก</option>
+                            </select>
+                        </div>
+                        <div class="col-xxl-3 col-md-4 ">
+                            <label for="labelInput" class="form-label fs-15 text-dark">เริ่มเข้าบริการ</label>
+                            <input type="text" class="form-control flatpickr-input" data-provider="flatpickr" data-date-format="d M, Y" readonly="readonly" name="start" value="<?= $data->start ?>">
+                        </div>
+                        <div class="col-xxl-3 col-md-4 ">
+                            <label for="labelInput" class="form-label fs-15 text-dark">หลังเข้าบริการ</label>
+                            <input type="text" class="form-control flatpickr-input" data-provider="flatpickr" data-date-format="d M, Y" readonly="readonly" name="end" value="<?= $data->end ?>">
+                        </div>
+                        <div class="col-xxl-3 col-md-4 ">
+                            <label for="labelInput" class="form-label fs-15 text-dark">ประเภท</label>
+                            <div class="mt-4 mt-lg-0">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="type" value="1" <?php if ($data->type == 1) {
+                                                                                                                                    echo "checked";
+                                                                                                                                } ?>>
+                                    <label class="form-check-label fs-16 fw-medium" for="inlineCheckbox6">โซล่าร์</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox7" name="type" value="2" <?php if ($data->type == 2) {
+                                                                                                                                    echo "checked";
+                                                                                                                                } ?>>
+                                    <label class="form-check-label fs-16 fw-medium" for="inlineCheckbox7">อีวีชาร์จ</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-
-
-
-
-                </di>
-
-                <div class="row mt-3">
-                    <div class="col-sm-4 align-self-start">
-                        <button class="btn btn-success waves-effect waves-light fs-18"
-                            type="submit">ค้นหาแบบเจาะจง</button>
-                    </div>
-                    <div class="col-sm-4 align-self-center">
-
-                    </div>
-                    <div class="col-sm-4 align-self-end text-right" style="text-align-last: right !important;">
-                        <a class="btn btn-primary waves-effect waves-light"
-                            href="file:///D:/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%94%E0%B8%B9%E0%B9%81%E0%B8%A5%E0%B9%80%E0%B8%9E%E0%B8%88-%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A/%E0%B8%88%E0%B8%B9%E0%B8%99/%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A%E0%B8%88%E0%B8%B9%E0%B8%99%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%82%E0%B8%B2%E0%B8%A2/%E0%B9%80%E0%B8%AD%E0%B8%81%E0%B8%AA%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B1%E0%B8%99/service-list1.pdf"
-                            role="button">Download PDF File</a>
-                    </div>
-                </div>
-
-
+                        </di>
+                        <div class="row mt-3">
+                            <div class="col-sm-4 align-self-start">
+                                <button class="btn btn-success waves-effect waves-light fs-18" type="submit">ค้นหาแบบเจาะจง</button>
+                            </div>
+                            <div class="col-sm-4 align-self-center">
+                            </div>
+                            <div class="col-sm-4 align-self-end text-right" style="text-align-last: right !important;">
+                                <a class="btn btn-primary waves-effect waves-light" href="" role="button">Download PDF File</a>
+                            </div>
+                        </div>
+                </form>
                 <div class="col-lg-12 mt-5">
-
                     <div class="card">
                         <div class="card-body">
-                            <table id="alternative-pagination"
-                                class="table  dt-responsive align-middle table-hover table-bordered" style="width:100%">
+                            <table id="alternative-pagination" class="table  dt-responsive align-middle table-hover table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>ชื่อโครงการ</th>
@@ -116,12 +101,11 @@ $data = null;
                                         <th>ที่อยู่</th>
                                         <th>สถานะ</th>
                                         <th>จัดการ</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $result = $prjService->viewProject();
+                                    $result = $prjService->viewProject(null,$data);
                                     $num = $result->rowCount();
                                     if ($num > 0) {
                                         $i = 0;
@@ -153,24 +137,21 @@ $data = null;
 
                                     ?>
 
-                                    <tr>
-                                        <td><?= $pojCODE ?></td>
-                                        <td><?= $pojName ?></td>
-                                        <td><?= $cusName ?></td>
-                                        <td><?= $cusTell ?></td>
-                                        <td><?= $cusMail ?></td>
-                                        <td><?= $cusAddr ?></td>
-                                        <td>
-                                            <?=$pojStatus?>
-                                        </td>
-                                        <td>
-                                            <a type="button"
-                                                href="file:///D:/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%94%E0%B8%B9%E0%B9%81%E0%B8%A5%E0%B9%80%E0%B8%9E%E0%B8%88-%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A/%E0%B8%88%E0%B8%B9%E0%B8%99/%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A%E0%B8%88%E0%B8%B9%E0%B8%99%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%82%E0%B8%B2%E0%B8%A2/%E0%B9%80%E0%B8%AD%E0%B8%81%E0%B8%AA%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B1%E0%B8%99/Book35.pdf"
-                                                class="btn btn-primary btn-label waves-effect waves-light"><i
-                                                    class="ri-file-edit-line label-icon align-middle fs-16 me-2"></i>
-                                                ดาวน์โหลด</a>
-                                        </td>
-                                    </tr>
+                                            <tr>
+                                                <td><?= $pojCODE ?></td>
+                                                <td><?= $pojName ?></td>
+                                                <td><?= $cusName ?></td>
+                                                <td><?= $cusTell ?></td>
+                                                <td><?= $cusMail ?></td>
+                                                <td><?= $cusAddr ?></td>
+                                                <td>
+                                                    <?= $pojStatus ?>
+                                                </td>
+                                                <td>
+                                                    <a type="button" href="file:///D:/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%94%E0%B8%B9%E0%B9%81%E0%B8%A5%E0%B9%80%E0%B8%9E%E0%B8%88-%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A/%E0%B8%88%E0%B8%B9%E0%B8%99/%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A%E0%B8%88%E0%B8%B9%E0%B8%99%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%82%E0%B8%B2%E0%B8%A2/%E0%B9%80%E0%B8%AD%E0%B8%81%E0%B8%AA%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B1%E0%B8%99/Book35.pdf" class="btn btn-primary btn-label waves-effect waves-light"><i class="ri-file-edit-line label-icon align-middle fs-16 me-2"></i>
+                                                        ดาวน์โหลด</a>
+                                                </td>
+                                            </tr>
                                     <?php
                                             $i++;
                                         }
@@ -259,7 +240,7 @@ $data = null;
             <div class="row">
                 <div class="col-sm-6">
                     <script>
-                    document.write(new Date().getFullYear())
+                        document.write(new Date().getFullYear())
                     </script> Develop By LJ ALL MEDIA CO.,LTD.
                 </div>
 

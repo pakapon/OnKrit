@@ -186,13 +186,21 @@ function grouptext($inputArray)
 function convertDateToDBFormat($dateString)
 {
     $date = DateTime::createFromFormat('d M, Y', $dateString);
-    return $date->format('Y-m-d');
+    if ($date) {
+        return $date->format('Y-m-d');
+    } else {
+        return false;
+    }
 }
 
 function convertDateStToDMY($dateString)
 {
     $date = DateTime::createFromFormat('d M, Y', $dateString);
-    return $date->format('d-m-Y');
+    if ($date) {
+        return $date->format('d-m-Y');
+    } else {
+        return false;
+    }
 }
 
 function convertDBFormatToDate($dateFromDB)
