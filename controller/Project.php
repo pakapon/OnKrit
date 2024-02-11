@@ -229,10 +229,6 @@ class ProjectService
         if (isset($id)) {
             $wid = "WHERE `pojID` = $id ";
         }
-        $data->staus = $_POST["staus"];
-        $data->start = convertDateToDBFormat($_POST["start"]);
-        $data->end = convertDateToDBFormat($_POST["end"]);
-        $data->type = $_POST["type"];
 
         if (!empty($data)) {
             $where = " WHERE 1=1 ";

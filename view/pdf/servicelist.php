@@ -26,7 +26,7 @@ ob_start();
             font-family: 'THSarabunNew';
             font-style: normal;
             font-weight: normal;
-            src: url("../../fonts/THSarabunNew.ttf") format('truetype');
+            src: url("../fonts/THSarabunNew.ttf") format('truetype');
         }
         body {
             font-family: "THSarabunNew";
@@ -135,7 +135,7 @@ use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 $dompdf->loadHtml($html, 'UTF-8');
 
-// $dompdf->getOptions()->set('defaultFont', 'TH Sarabun New');
+$dompdf->getOptions()->set('defaultFont', 'TH Sarabun New');
 // (Optional) Setup the paper size and orientation
 $dompdf->setPaper('A4', 'landscape');
 
