@@ -59,9 +59,9 @@ class DatabaseService
         global $is_pro;
         if ($is_pro == 1) {
             $this->db_host = "127.0.0.1";
-            $this->db_name = "onkrit";
-            $this->db_user = "root";
-            $this->db_password = "moonchildroot";
+            $this->db_name = "fsymjpstma";
+            $this->db_user = "fsymjpstma";
+            $this->db_password = "Jr9gbYy8sS";
         } else {
             $this->db_host = "127.0.0.1";
             $this->db_name = "onkrit";
