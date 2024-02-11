@@ -240,3 +240,14 @@ function getStatuColor($status)
             return '';
     }
 }
+
+
+function convertDBFormatToFulldate($dateFromDB)
+{
+    $date = DateTime::createFromFormat('Y-m-d', $dateFromDB);
+    if ($date) {
+        return $date->format('d F Y');
+    } else {
+        return false;
+    }
+}

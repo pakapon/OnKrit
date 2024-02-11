@@ -67,7 +67,7 @@ if (!empty($_POST['cusName'])) {
                 </div>
             </div>
             <!-- end page title -->
-            <form method="post" action="home.php?page=adduser" id="myForm">
+            <form method="post" action="index.php?page=adduser" id="myForm">
                 <div class="row">
                     <div class="card">
                         <div class="card-body">

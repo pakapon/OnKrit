@@ -46,7 +46,7 @@
                         <div class="mt-4">
                             <h4 class="mb-3">ดำเนินการสำเร็จ!!</h4>
                             <div class="hstack gap-2 justify-content-center mt-2">
-                                <a href="home.php?page=dashboard" class="btn btn-lg btn-dark">ดำเนินการต่อ</a>
+                                <a href="index.php?page=dashboard" class="btn btn-lg btn-dark">ดำเนินการต่อ</a>
                             </div>
                         </div>
                     </div>

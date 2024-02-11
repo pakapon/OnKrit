@@ -10,8 +10,6 @@ $cusService = new CuntomerService($conn);
 $prjService = new ProjectService($conn);
 
 $data = null;
-
-
 ?>
 <!-- ============================================================== -->
 <!-- Start right Content here -->
@@ -59,7 +57,7 @@ $data = null;
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $result = $prjService->viewProject();
+                                    $result = $prjService->viewQR($data, 1);
                                     $num = $result->rowCount();
                                     if ($num > 0) {
                                         $i = 0;
@@ -90,7 +88,6 @@ $data = null;
                                             $result_c = null;
 
                                     ?>
-
                                     <tr>
                                         <td><?= $pojCODE ?></td>
                                         <td><?= $pojName ?></td>
@@ -99,10 +96,10 @@ $data = null;
                                         <td><?= $cusMail ?></td>
                                         <td><?= $cusAddr ?></td>
                                         <td>
-                                            <a type="button" href="./pdf/servicelist.php?id=<?= $pojID ?>" target=”_blank”
+                                            <a type="button" href="index.php?page=warantyprint&id=<?= $pojID ?>" target=”_blank”
                                                 class="btn btn-primary btn-label waves-effect waves-light"><i
                                                     class="ri-file-edit-line label-icon align-middle fs-16 me-2"></i>
-                                                ดาวน์โหลด</a>
+                                                รายละเอียด</a>
                                         </td>
                                     </tr>
                                     <?php
@@ -110,7 +107,6 @@ $data = null;
                                         }
                                         $result = null;
                                     } ?>
-
                                 </tbody>
                             </table>
                         </div>

@@ -59,10 +59,11 @@ if (!empty($_POST['pojName'])) {
     $data->pojListSerial = grouptext($_POST["pojListSerial"]);
     $data->pojListStartWarranty = grouptext($_POST["pojListStartWarranty"]);
     $data->pojListEndWarranty = grouptext($_POST["pojListEndWarranty"]);
-    $data->pojServiceDate = grouptext($_POST["pojServiceDate"]);
-    $data->pojServiceTopic = grouptext($_POST["pojServiceTopic"]);
-    $data->pojServicePrices = grouptext($_POST["pojServicePrices"]);
-    $data->pojServiceStatus = grouptext($_POST["pojServiceStatus"]);
+
+    $data->pojServiceDate = ($_POST["pojServiceDate"]);
+    $data->pojServiceTopic = ($_POST["pojServiceTopic"]);
+    $data->pojServicePrices = ($_POST["pojServicePrices"]);
+    $data->pojServiceStatus = ($_POST["pojServiceStatus"]);
 
     $create = $prjService->createProject($data);
     $data = null;
@@ -91,7 +92,7 @@ if (!empty($_POST['pojName'])) {
 <!-- Start right Content here -->
 <!-- ============================================================== -->
 
-<form method="post" action="home.php?page=addSolar" id="myForm" enctype="multipart/form-data">
+<form method="post" action="index.php?page=addSolar" id="myForm" enctype="multipart/form-data">
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
@@ -556,7 +557,7 @@ if (!empty($_POST['pojName'])) {
     var deleteServiceRowId = null;
     getProductList();
 
-    document.getElementById('pojPost').addEVentListener('change', function() {
+    document.getElementById('pojPost').addEventListener('change', function() {
         var postcode = this.value;
         fetch(`option/get_address_data.php?postcode=${postcode}`)
             .then(response => response.json())

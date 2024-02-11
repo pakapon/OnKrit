@@ -60,7 +60,7 @@ $cusService = new CuntomerService($conn);
                                                 <td><?php echo $row["cusMail"];?></td>
                                                 <td><?php echo $row["cusAddr"]." ".$row["cusTumbol"]." ".$row["cusAumper"]." ".$row["cusProvince"]." ".$row["cusPost"];?></td>
                                                 <td>
-                                                    <a type="button" href="home.php?page=useredit&id=<?php echo $row["cusId"];?>" class="btn btn-primary btn-label waves-effect waves-light"><i class="ri-file-edit-line label-icon align-middle fs-16 me-2"></i> แก้ไข</a>
+                                                    <a type="button" href="index.php?page=useredit&id=<?php echo $row["cusId"];?>" class="btn btn-primary btn-label waves-effect waves-light"><i class="ri-file-edit-line label-icon align-middle fs-16 me-2"></i> แก้ไข</a>
                                                 </td>
                                             </tr>
                                         <?php

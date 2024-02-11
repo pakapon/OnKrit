@@ -12,7 +12,9 @@ class ProjectService
 
     public function createProject($data)
     {
-        global $table_pj;
+        global $table_pj, $table_ps;
+
+        $code = strtoupper(uniqid());
 
         $query = "INSERT INTO `$table_pj`
                     SET
@@ -54,10 +56,7 @@ class ProjectService
                         `pojListStartWarranty` = :pojListStartWarranty,
                         `pojListEndWarranty` = :pojListEndWarranty,
 
-                        `pojServiceDate` = :pojServiceDate,
-                        `pojServiceTopic` = :pojServiceTopic,
-                        `pojServicePrices` = :pojServicePrices,
-                        `pojServiceStatus` = :pojServiceStatus,
+                        `pojServiceCode` = :pojServiceCode,
 
                         `pojCreate` = now(),
                         `pojUpdate` = now()
@@ -103,21 +102,41 @@ class ProjectService
         $stmt->bindParam(':pojListStartWarranty', $data->pojListStartWarranty);
         $stmt->bindParam(':pojListEndWarranty', $data->pojListEndWarranty);
 
-        $stmt->bindParam(':pojServiceDate', $data->pojServiceDate);
-        $stmt->bindParam(':pojServiceTopic', $data->pojServiceTopic);
-        $stmt->bindParam(':pojServicePrices', $data->pojServicePrices);
-        $stmt->bindParam(':pojServiceStatus', $data->pojServiceStatus);
+        $stmt->bindParam(':pojServiceCode', $code);
+        $stmt->execute();
 
-        if ($stmt->execute()) {
-            return "บันทึกข้อมูลสำเร็จ";
-        } else {
-            return "บันทึกข้อมูลไม่สำเร็จ";
+        $stmt = null;
+        $i = 0;
+        include_once $_SERVER['DOCUMENT_ROOT'] . '/config/globalfuction.php';
+        foreach ($data->pojServiceTopic as $topic) {
+            $date = convertDateToDBFormat($data->pojServiceDate[$i]);
+            $query = " INSERT INTO `$table_ps`
+                            SET
+                                `pojServiceCode` = :pojServiceCode,
+                                `pojServiceDate` = :pojServiceDate,
+                                `pojServiceTopic` = :pojServiceTopic,
+                                `pojServicePrices` = :pojServicePrices,
+                                `pojServiceStatus` = :pojServiceStatus
+            ";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':pojServiceCode', $code);
+            $stmt->bindParam(':pojServiceDate', $date);
+            $stmt->bindParam(':pojServiceTopic', $topic);
+            $stmt->bindParam(':pojServicePrices', $data->pojServicePrices[$i]);
+            $stmt->bindParam(':pojServiceStatus', $data->pojServiceStatus[$i]);
+            $stmt->execute();
+            $stmt = null;
+            $i++;
         }
+
+        return "บันทึกข้อมูลสำเร็จ";
     }
 
     public function editProject($data)
     {
-        global $table_pj;
+        global $table_pj, $table_ps;
+
 
         $query = "UPDATE `$table_pj`
                     SET
@@ -158,11 +177,6 @@ class ProjectService
                         `pojListSerial` = :pojListSerial,
                         `pojListStartWarranty` = :pojListStartWarranty,
                         `pojListEndWarranty` = :pojListEndWarranty,
-
-                        `pojServiceDate` = :pojServiceDate,
-                        `pojServiceTopic` = :pojServiceTopic,
-                        `pojServicePrices` = :pojServicePrices,
-                        `pojServiceStatus` = :pojServiceStatus,
 
                         `pojUpdate` = now()
                     WHERE
@@ -210,16 +224,40 @@ class ProjectService
         $stmt->bindParam(':pojListStartWarranty', $data->pojListStartWarranty);
         $stmt->bindParam(':pojListEndWarranty', $data->pojListEndWarranty);
 
-        $stmt->bindParam(':pojServiceDate', $data->pojServiceDate);
-        $stmt->bindParam(':pojServiceTopic', $data->pojServiceTopic);
-        $stmt->bindParam(':pojServicePrices', $data->pojServicePrices);
-        $stmt->bindParam(':pojServiceStatus', $data->pojServiceStatus);
+        $stmt->execute();
+        $stmt = null;
 
-        if ($stmt->execute()) {
-            return "บันทึกข้อมูลสำเร็จ";
-        } else {
-            return "บันทึกข้อมูลไม่สำเร็จ";
+        $query = "DELETE FROM `$table_ps` WHERE `pojServiceCode` = :pojServiceCode";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':pojServiceCode', $data->pojServiceCode);
+        $stmt->execute();
+        $stmt = null;
+
+        include_once $_SERVER['DOCUMENT_ROOT'] . '/config/globalfuction.php';
+        $i = 0;
+        foreach ($data->pojServiceTopic as $topic) {
+            $date = convertDateToDBFormat($data->pojServiceDate[$i]);
+            $query = " INSERT INTO `$table_ps`
+                            SET
+                                `pojServiceCode` = :pojServiceCode,
+                                `pojServiceDate` = :pojServiceDate,
+                                `pojServiceTopic` = :pojServiceTopic,
+                                `pojServicePrices` = :pojServicePrices,
+                                `pojServiceStatus` = :pojServiceStatus
+            ";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':pojServiceCode', $data->pojServiceCode);
+            $stmt->bindParam(':pojServiceDate', $date);
+            $stmt->bindParam(':pojServiceTopic', $topic);
+            $stmt->bindParam(':pojServicePrices', $data->pojServicePrices[$i]);
+            $stmt->bindParam(':pojServiceStatus', $data->pojServiceStatus[$i]);
+            $stmt->execute();
+            $stmt = null;
+            $i++;
         }
+
+        return "บันทึกข้อมูลสำเร็จ";
     }
 
     public function viewProject($id = null, $data = null)
@@ -230,23 +268,56 @@ class ProjectService
             $wid = "WHERE `pojID` = $id ";
         }
 
-        if (!empty($data)) {
-            $where = " WHERE 1=1 ";
-            if ($data->staus) {
-                $where .= " AND `` = '$data->staus' ";
-            }
-            if ($data->start) {
-                $where .= " AND `` = '$data->start' AND '$data->end'";
-            }
-            if ($data->type) {
-                $where .= " AND `` = '$data->staus' ";
-            }
-        }
-
-        $query = " SELECT * FROM `$table_pj` $wid $where ORDER BY `pojID` DESC";
+        $query = " SELECT * FROM `$table_pj` $wid ORDER BY `pojID` DESC";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
+        return $stmt;
+    }
+
+    public function viewProjectService($id = null)
+    {
+        global $table_ps;
+
+        $wid = "WHERE `pojServiceCode` = '$id' ";
+
+        $query = " SELECT * FROM `$table_ps` $wid ";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    public function viewQR($data = null, $g = null)
+    {
+        global $table_ps, $table_pj;
+
+        if ($g == 1) {
+            $group = " GROUP BY `pojID` ";
+        }
+
+        $where = " WHERE 1=1 ";
+        if ($data->id) {
+            $where .= " AND `pojID` = '$data->id' ";
+        }
+        if ($data->staus) {
+            $where .= " AND `pojServiceStatus` = '$data->staus' ";
+        }
+        if ($data->start) {
+            $where .= " AND `pojServiceDate` BETWEEN '$data->start' AND '$data->end'";
+        }
+        if ($data->type == 1) {
+            $where .= " AND `pojWp` IS NOT NULL ";
+        } elseif ($data->type == 2) {
+            $where .= " AND `pojWp` IS NULL ";
+        }
+
+        $query = " SELECT * FROM `$table_ps` a LEFT JOIN `$table_pj` b ON a.pojServiceCode = b.pojServiceCode
+                        $where $group ORDER BY `posID` DESC";
+        // echo $query;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
         return $stmt;
     }
 }

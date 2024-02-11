@@ -48,7 +48,7 @@ if (!empty($_POST['proName'])) {
 <!-- Start right Content here -->
 <!-- ============================================================== -->
 <div class="main-content">
-    <form method="post" action="home.php?page=addProduct" id="myForm" enctype="multipart/form-data">
+    <form method="post" action="index.php?page=addProduct" id="myForm" enctype="multipart/form-data">
         <div class="page-content">
             <div class="container-fluid">
                 <div class="row">

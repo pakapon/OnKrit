@@ -106,7 +106,7 @@ $data = null;
                                                 </td>
                                                 <td>
                                                     <!-- Buttons with Label -->
-                                                    <a type="button" href="home.php?page=editSolar&id=<?= $pojID ?>" class="btn btn-primary btn-label waves-effect waves-light"><i class="ri-file-edit-line label-icon align-middle fs-16 me-2"></i> แก้ไข</a>
+                                                    <a type="button" href="index.php?page=editSolar&id=<?= $pojID ?>" class="btn btn-primary btn-label waves-effect waves-light"><i class="ri-file-edit-line label-icon align-middle fs-16 me-2"></i> แก้ไข</a>
                                                 </td>
                                             </tr>
                                     <?php

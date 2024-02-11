@@ -91,7 +91,7 @@ if (!empty($_POST['cusName'])) {
                 </div>
             </div>
             <!-- end page title -->
-            <form method="post" action="home.php?page=useredit&id=<?php echo $data->cusId ?>" id="myForm">
+            <form method="post" action="index.php?page=useredit&id=<?php echo $data->cusId ?>" id="myForm">
                 <div class="row">
                     <div class="card">
                         <div class="card-body">

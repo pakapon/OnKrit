@@ -1,0 +1,23 @@
+# Turn on URL rewriting
+RewriteEngine On
+
+# Set your base URL here if necessary
+# RewriteBase /
+
+# Redirect errors to /view/index.php
+ErrorDocument 404 /view/index.php
+
+# Internally redirect "/view/index.php" or "/index.php" access to "/"
+RewriteRule ^view/index\.php$ / [R=301,L]
+RewriteRule ^index\.php$ / [R=301,L]
+
+# Remove ".php" extension from URLs
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule !.*\.php$ %{REQUEST_FILENAME}.php [L]
+
+# Redirect to hide "/view/index.php" in the URL, show just "/"
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /view/index\.php\ HTTP/
+RewriteRule ^view/index\.php$ / [R=301,L]
+
+# Ensure "/view/index.php" is served when the root is accessed
+RewriteRule ^$ /view/index.php [L]

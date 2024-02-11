@@ -41,7 +41,7 @@ if ($_GET["delete"] == 1) {
                     <div class="mt-4">
                         <h4 class="mb-3"><?php echo $create; ?></h4>
                         <div class="hstack gap-2 justify-content-center mt-2">
-                            <a href="home.php?page=addProductType" class="btn btn-lg btn-dark">ดำเนินการต่อ</a>
+                            <a href="index.php?page=addProductType" class="btn btn-lg btn-dark">ดำเนินการต่อ</a>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ if ($_GET["delete"] == 1) {
             <!-- end page title -->
             <div class="row">
                 <div class="card col-md-8">
-                    <form method="post" action="home.php?page=addProductType" id="myForm">
+                    <form method="post" action="index.php?page=addProductType" id="myForm">
                         <div class="card-body">
                             <div class="live-preview">
                                 <div class="row gy-4">

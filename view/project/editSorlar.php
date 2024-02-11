@@ -67,6 +67,7 @@ if ($_GET["id"]) {
             $pojServiceTopic = $row["pojServiceTopic"];
             $pojServicePrices = $row["pojServicePrices"];
             $pojServiceStatus = $row["pojServiceStatus"];
+            $pojServiceCode = $row["pojServiceCode"];
 
             if (!empty($row['pojWp'])) {
                 $pojType = "โซล่าร์";
@@ -155,10 +156,13 @@ if (!empty($_POST['pojName'])) {
     $data->pojListSerial = grouptext($_POST["pojListSerial"]);
     $data->pojListStartWarranty = grouptext($_POST["pojListStartWarranty"]);
     $data->pojListEndWarranty = grouptext($_POST["pojListEndWarranty"]);
-    $data->pojServiceDate = grouptext($_POST["pojServiceDate"]);
-    $data->pojServiceTopic = grouptext($_POST["pojServiceTopic"]);
-    $data->pojServicePrices = grouptext($_POST["pojServicePrices"]);
-    $data->pojServiceStatus = grouptext($_POST["pojServiceStatus"]);
+
+    $data->pojServiceDate = ($_POST["pojServiceDate"]);
+    $data->pojServiceTopic = ($_POST["pojServiceTopic"]);
+    $data->pojServicePrices = ($_POST["pojServicePrices"]);
+    $data->pojServiceStatus = ($_POST["pojServiceStatus"]);
+
+    $data->pojServiceCode = $pojServiceCode;
 
     $create = $prjService->editProject($data);
     $data = null;
@@ -188,7 +192,7 @@ if (!empty($_POST['pojName'])) {
 <!-- Start right Content here -->
 <!-- ============================================================== -->
 
-<form method="post" action="home.php?page=editSolar&id=<?= $pojID ?>" id="myForm" enctype="multipart/form-data">
+<form method="post" action="index.php?page=editSolar&id=<?= $pojID ?>" id="myForm" enctype="multipart/form-data">
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
@@ -560,34 +564,30 @@ if (!empty($_POST['pojName'])) {
                                                 </thead>
                                                 <tbody id="serviceListBody">
                                                     <?php
-                                                    $sd = explode("|", $pojServiceDate);
-                                                    $st = explode("|", $pojServiceTopic);
-                                                    $sp = explode("|", $pojServicePrices);
-                                                    $pss = explode("|", $pojServiceStatus);
-
+                                                    $resultService = $prjService->viewProjectService($pojServiceCode);
                                                     $s = 0;
-                                                    foreach ($st as $sts) {
+                                                    while ($rowService = $resultService->fetch(PDO::FETCH_ASSOC)) {
                                                         $s++;
                                                     ?>
                                                         <tr class="serviceRow" data-id="<?= $s ?>">
                                                             <th scope="row"><?= $s ?>
                                                             </th>
                                                             <td>
-                                                                <input type="text" class="form-control1 form-control-sm fs-12 flatpickr-input" data-provider="flatpickr" data-date-format="d M, Y" readonly="readonly" placeholder="24-01-2024" id="pojServiceDate" name="pojServiceDate[]" value="<?= trim($sd[$s - 1]) ?>">
+                                                                <input type="text" class="form-control1 form-control-sm fs-12 flatpickr-input" data-provider="flatpickr" data-date-format="d M, Y" readonly="readonly" placeholder="24-01-2024" id="pojServiceDate" name="pojServiceDate[]" value="<?= convertDBFormatToDate($rowService['pojServiceDate']) ?>">
                                                             </td>
                                                             <td>
-                                                                <input class="form-control1 form-control-sm fs-12" type="text" placeholder="งานบริการ" id="pojServiceTopic" name="pojServiceTopic[]" value="<?= trim($sts) ?>">
+                                                                <input class="form-control1 form-control-sm fs-12" type="text" placeholder="งานบริการ" id="pojServiceTopic" name="pojServiceTopic[]" value="<?= $rowService['pojServiceTopic'] ?>">
                                                             </td>
                                                             <td>
-                                                                <input class="form-control1 form-control-sm fs-12" type="text" placeholder="0.00" id="pojServicePrices" name="pojServicePrices[]" value="<?= trim($sp[$s - 1]) ?>">
+                                                                <input class="form-control1 form-control-sm fs-12" type="text" placeholder="0.00" id="pojServicePrices" name="pojServicePrices[]" value="<?= $rowService['pojServicePrices'] ?>">
                                                             </td>
                                                             <td class="serviceButton" data-button="<?= $s ?>">
-                                                                <button type="button" class="btn btn-<?php echo getStatuColor(trim($pss[$s - 1])) ?> btn-sm" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center1" onclick="changeServiceStatus(<?= $s ?>)"><?= trim($pss[$s - 1]) ?></button>
+                                                                <button type="button" class="btn btn-<?php echo getStatuColor($rowService['pojServiceStatus']) ?> btn-sm" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center1" onclick="changeServiceStatus(<?= $s ?>)"><?= $rowService['pojServiceStatus'] ?></button>
                                                             </td>
                                                             <td class="serviceType" data-type="<?= $s ?>">
                                                                 <i class="ri-delete-bin-line fs-18 text-danger" type="button" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center-service" onclick="deleteServiceRowSetId(<?= $s ?>)"></i>
                                                             </td>
-                                                            <input type="hidden" id="pojServiceStatus" class="pojServiceStatus" name="pojServiceStatus[]" data-pojServiceStatus="<?= $s ?>" value="<?= trim($pss[$s - 1]) ?>">
+                                                            <input type="hidden" id="pojServiceStatus" class="pojServiceStatus" name="pojServiceStatus[]" data-pojServiceStatus="<?= $s ?>" value="<?= $rowService['pojServiceStatus'] ?>">
                                                         </tr>
 
                                                     <?php
@@ -757,7 +757,7 @@ if (!empty($_POST['pojName'])) {
     var deleteServiceRowId = null;
     getProductList();
 
-    document.getElementById('pojPost').addEVentListener('change', function() {
+    document.getElementById('pojPost').addEventListener('change', function() {
         var postcode = this.value;
         fetch(`option/get_address_data.php?postcode=${postcode}`)
             .then(response => response.json())

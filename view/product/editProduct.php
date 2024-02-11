@@ -50,7 +50,7 @@ if (!empty($_POST['proName'])) {
                     <div class="mt-4">
                         <h4 class="mb-3"><?php echo $create; ?></h4>
                         <div class="hstack gap-2 justify-content-center mt-2">
-                            <a href="home.php?page=editProduct&id=<?= $proID ?>" class="btn btn-lg btn-dark">ดำเนินการต่อ</a>
+                            <a href="index.php?page=editProduct&id=<?= $proID ?>" class="btn btn-lg btn-dark">ดำเนินการต่อ</a>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@ if (!empty($_POST['proName'])) {
 <!-- Start right Content here -->
 <!-- ============================================================== -->
 <div class="main-content">
-    <form method="post" action="home.php?page=editProduct&id=<?= $proID ?>" id="myForm" enctype="multipart/form-data">
+    <form method="post" action="index.php?page=editProduct&id=<?= $proID ?>" id="myForm" enctype="multipart/form-data">
         <div class="page-content">
             <div class="container-fluid">
                 <div class="row">

@@ -19,7 +19,7 @@ if ($_GET["delete"] == 1) {
                     <div class="mt-4">
                         <h4 class="mb-3"><?php echo $create; ?></h4>
                         <div class="hstack gap-2 justify-content-center mt-2">
-                            <a href="home.php?page=viewProduct" class="btn btn-lg btn-dark">ดำเนินการต่อ</a>
+                            <a href="index.php?page=viewProduct" class="btn btn-lg btn-dark">ดำเนินการต่อ</a>
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@ if ($_GET["delete"] == 1) {
                                                 </td>
                                                 <td>
                                                     <div class="mt-2">
-                                                        <a type="button" href="home.php?page=editProduct&id=<?= $proID ?>" class="btn btn-primary btn-label waves-effect waves-light" >
+                                                        <a type="button" href="index.php?page=editProduct&id=<?= $proID ?>" class="btn btn-primary btn-label waves-effect waves-light" >
                                                             <i class="ri-file-edit-line label-icon align-middle fs-16 me-2"></i> แก้ไข</a>
                                                     </div>
                                                     <div class="mt-2">
