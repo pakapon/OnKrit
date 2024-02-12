@@ -141,4 +141,17 @@ class CuntomerService
         $stmt->execute();
         return $stmt;
     }
+
+    public function countCustomer()
+    {
+        global $table_cu;
+
+        $query = " SELECT COUNT(1) AS counters FROM `$table_cu`  ";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $row['counters'];
+    }
 }

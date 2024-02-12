@@ -156,16 +156,16 @@ if (!empty($_POST['pojName'])) {
                                     <div class="col-xxl-3 col-md-6">
                                         <label for="exampleDataList" class="form-label fs-15 text-dark">รูปในโครงการ
                                             <span class="text-danger">*(.jpg ไม่เกิน 30 รูป)</span></label>
-                                        <input class="form-control" type="file" id="pojImage" name="pojImage[]" multiple>
+                                        <input class="form-control" type="file" id="pojImage" name="pojImage[]" accept=".jpg" multiple>
                                     </div>
                                     <div class="col-xxl-3 col-md-6">
                                         <label for="exampleDataList" class="form-label fs-15 text-dark">เอกสารการขออนุญาต <span class="text-danger">*(.pdf ไม่เกิน 5ไฟล์)</span></label>
-                                        <input class="form-control" type="file" id="pojFile" name="pojFile[]" multiple>
+                                        <input class="form-control" type="file" id="pojFile" name="pojFile[]" accept=".pdf" multiple>
                                     </div>
                                     <div class="col-xxl-3 col-md-6">
                                         <label for="exampleDataList" class="form-label fs-15 text-dark">เอกสารแนบโครงการ
                                             <span class="text-danger">*(.pdf ไม่เกิน 5ไฟล์)</span></label>
-                                        <input class="form-control" type="file" id="pojPDF" name="pojPDF[]" multiple>
+                                        <input class="form-control" type="file" id="pojPDF" name="pojPDF[]" accept=".pdf" multiple>
                                     </div>
                                     <div class="col-12 mt-5">
                                         <h5 class="fs-18 fw-bold ">รายละเอียดโครงการ</h5>
@@ -187,7 +187,7 @@ if (!empty($_POST['pojName'])) {
                                     <div class="col-xxl-3 col-md-6">
                                         <div>
                                             <label for="labelInput" class="form-label fs-15 text-dark">เลขที่โครงการ</label>
-                                            <input type="text" class="form-control" id="pojCODE" name="pojCODE" required>
+                                            <input type="text" class="form-control" id="pojCODE" name="pojCODE">
                                         </div>
                                     </div>
                                     <div class="col-xxl-3 col-md-6">
@@ -272,7 +272,7 @@ if (!empty($_POST['pojName'])) {
                                                         <div class="col-xxl-3 col-md-4 ">
                                                             <label for="exampleDataList" class="form-label fs-15 text-dark">ระบบการติดตั้ง <span class="text-danger">*</span></label>
                                                             <select class="form-control" id="pojSystem" name="pojSystem">
-                                                                <option value="">เหลือกระบบการติดตั้ง</option>
+                                                                <option value="">เลือกระบบการติดตั้ง</option>
                                                                 <option value="MEA">MEA</option>
                                                                 <option value="MEA">PEA</option>
                                                             </select>
@@ -494,7 +494,7 @@ if (!empty($_POST['pojName'])) {
                                     <div class="hstack gap-2 justify-content-center mt-5">
 
                                         <button type="button" class="btn btn-light fs-18" data-bs-dismiss="modal">ยกเลิก</button>
-                                        <a href="javascript:void(0);" class="btn btn-primary fs-18" onclick="readExcelFile()">ยืนยันการทำรายการ</a>
+                                        <a href="javascript:void(0);" class="btn btn-primary fs-18" onclick="readExcelFile()" data-bs-dismiss="modal">ยืนยันการทำรายการ</a>
                                     </div>
                                 </div>
                             </div>
@@ -518,7 +518,7 @@ if (!empty($_POST['pojName'])) {
                                     </div>
                                     <div class="hstack gap-2 justify-content-center mt-5">
                                         <button type="button" class="btn btn-light fs-18" data-bs-dismiss="modal">ยกเลิก</button>
-                                        <a href="javascript:void(0);" onclick="changeServiceStatusConfirm()" class="btn btn-primary fs-18">ยืนยันการทำรายการ</a>
+                                        <a href="javascript:void(0);" onclick="changeServiceStatusConfirm()" class="btn btn-primary fs-18" data-bs-dismiss="modal">ยืนยันการทำรายการ</a>
                                     </div>
                                 </div>
                             </div>
@@ -791,15 +791,15 @@ if (!empty($_POST['pojName'])) {
                     <th scope="row">${rowNumber}
                     </th>
                     <td>
-                        <input type="text" class="form-control1 form-control-sm fs-12 flatpickr-input" data-provider="flatpickr"
+                        <input type="text" class="form-control1 form-control-sm fs-12 flatpickr-input" data-provider="flatpickr" value="12 Feb, 2024"
                             data-date-format="d M, Y" readonly="readonly" placeholder="24-01-2024" id="pojServiceDate" name="pojServiceDate[]">
                     </td>
                     <td>
-                        <input class="form-control1 form-control-sm fs-12"
+                        <input class="form-control1 form-control-sm fs-12" value="งานบริการ"
                             type="text" placeholder="งานบริการ" id="pojServiceTopic" name="pojServiceTopic[]">
                     </td>
                     <td>
-                        <input class="form-control1 form-control-sm fs-12"
+                        <input class="form-control1 form-control-sm fs-12" value="0"
                             type="text" placeholder="0.00" id="pojServicePrices" name="pojServicePrices[]">
                     </td>
                     <td class="serviceButton" data-button="${rowNumber}">

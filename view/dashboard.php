@@ -1,3 +1,26 @@
+<?php
+include_once $_SERVER['DOCUMENT_ROOT'] . '/controller/Product.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/controller/Customer.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/controller/Project.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/config/globalfuction.php';
+
+$databaseService = new DatabaseService();
+$conn = $databaseService->getConnection();
+
+$proService = new ProductService($conn);
+$cusService = new CuntomerService($conn);
+$prjService = new ProjectService($conn);
+
+$data = null;
+$data = new stdClass;
+
+$data->cus = $cusService->countCustomer();
+$data->prod = $proService->countProduct();
+$data->pro = $prjService->countProject();
+$data->csv = $prjService->countService();
+
+
+?>
  <!-- Vertical Overlay-->
  <div class="vertical-overlay"></div>
 
@@ -37,7 +60,7 @@
                              </div>
                              <div class="d-flex align-items-end justify-content-between mt-4">
                                  <div>
-                                     <h4 class="fs-24 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="225"></span> User</h4>
+                                     <h4 class="fs-24 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="<?=$data->cus?>"></span> User</h4>
                                  </div>
                                  <div class="avatar-sm flex-shrink-0">
                                      <span class="avatar-title bg-primary-subtle rounded fs-3">
@@ -62,7 +85,7 @@
                              </div>
                              <div class="d-flex align-items-end justify-content-between mt-4">
                                  <div>
-                                     <h4 class="fs-24 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="5"></span> Project</h4>
+                                     <h4 class="fs-24 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="<?=$data->pro?>"></span> Project</h4>
                                  </div>
                                  <div class="avatar-sm flex-shrink-0">
                                      <span class="avatar-title bg-primary-subtle rounded fs-3">
@@ -87,7 +110,7 @@
                              </div>
                              <div class="d-flex align-items-end justify-content-between mt-4">
                                  <div>
-                                     <h4 class="fs-24 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="10"></span> Product</h4>
+                                     <h4 class="fs-24 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="<?=$data->prod?>"></span> Product</h4>
                                  </div>
                                  <div class="avatar-sm flex-shrink-0">
                                      <span class="avatar-title bg-primary-subtle rounded fs-3">
@@ -110,7 +133,7 @@
                              </div>
                              <div class="d-flex align-items-end justify-content-between mt-4">
                                  <div>
-                                     <h4 class="fs-24 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="10"></span> Service</h4>
+                                     <h4 class="fs-24 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="<?=$data->csv?>"></span> Service</h4>
                                  </div>
                                  <div class="avatar-sm flex-shrink-0">
                                      <span class="avatar-title bg-primary-subtle rounded fs-3">

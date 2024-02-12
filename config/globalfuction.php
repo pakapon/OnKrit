@@ -217,7 +217,7 @@ function getStatusButton($status)
 {
     switch ($status) {
         case 'ดำเนินการ':
-            return '<button type="button" class="btn rounded-pill btn-warning waves-effect waves-light">เสร็จสิ้น</button>';
+            return '<button type="button" class="btn rounded-pill btn-warning waves-effect waves-light">ดำเนินการ</button>';
         case 'เสร็จสิ้น':
             return '<button type="button" class="btn rounded-pill btn-success waves-effect waves-light">เสร็จสิ้น</button>';
         case 'ยกเลิก':

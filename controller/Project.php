@@ -12,7 +12,7 @@ class ProjectService
 
     public function createProject($data)
     {
-        global $table_pj, $table_ps;
+        global $table_pj, $table_ps, $table_fl;
 
         $code = strtoupper(uniqid());
 
@@ -21,9 +21,7 @@ class ProjectService
                         `pojCus` = :pojCus,
                         `pojStatus` = :pojStatus,
                         `pojDocStatus` = :pojDocStatus,
-                        `pojImage` = :pojImage,
-                        `pojFile` = :pojFile,
-                        `pojPDF` = :pojPDF,
+                        
                         `pojName` = :pojName,
                         `pojType` = :pojType,
                         `pojCODE` = :pojCODE,
@@ -67,9 +65,6 @@ class ProjectService
         $stmt->bindParam(':pojCus', $data->pojCus);
         $stmt->bindParam(':pojStatus', $data->pojStatus);
         $stmt->bindParam(':pojDocStatus', $data->pojDocStatus);
-        $stmt->bindParam(':pojImage', $data->pojImage);
-        $stmt->bindParam(':pojFile', $data->pojFile);
-        $stmt->bindParam(':pojPDF', $data->pojPDF);
         $stmt->bindParam(':pojName', $data->pojName);
         $stmt->bindParam(':pojType', $data->pojType);
         $stmt->bindParam(':pojCODE', $data->pojCODE);
@@ -104,12 +99,59 @@ class ProjectService
 
         $stmt->bindParam(':pojServiceCode', $code);
         $stmt->execute();
-
         $stmt = null;
-        $i = 0;
+
+        $datax = explode('|',$data->pojImage);
+        foreach($datax as $pojImage){
+            $query = "INSERT INTO `$table_fl` 
+                        SET `fileCode` = :pojServiceCode,
+                            `fileType` = 'pojImage',
+                            `filePath` = :part,
+                            `fileCreate` = now()
+                        ";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':pojServiceCode', $code);
+            $stmt->bindParam(':part', $pojImage);
+            $stmt->execute();
+            $stmt = null;
+        }
+
+        $datax = explode('|',$data->pojFile);
+        foreach($datax as $pojFile){
+            $query = "INSERT INTO `$table_fl` 
+                        SET `fileCode` = :pojServiceCode,
+                            `fileType` = 'pojFile',
+                            `filePath` = :part,
+                            `fileCreate` = now()
+                        ";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':pojServiceCode', $code);
+            $stmt->bindParam(':part', $pojFile);
+            $stmt->execute();
+            $stmt = null;
+        }
+
+        $datax = explode('|',$data->pojPDF);
+        foreach($datax as $pojPDF){
+            $query = "INSERT INTO `$table_fl` 
+                        SET `fileCode` = :pojServiceCode,
+                            `fileType` = 'pojPDF',
+                            `filePath` = :part,
+                            `fileCreate` = now()
+                        ";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':pojServiceCode', $code);
+            $stmt->bindParam(':part', $pojPDF);
+            $stmt->execute();
+            $stmt = null;
+        }
+
         include_once $_SERVER['DOCUMENT_ROOT'] . '/config/globalfuction.php';
+
+        $i = 0;
         foreach ($data->pojServiceTopic as $topic) {
             $date = convertDateToDBFormat($data->pojServiceDate[$i]);
+            
             $query = " INSERT INTO `$table_ps`
                             SET
                                 `pojServiceCode` = :pojServiceCode,
@@ -135,7 +177,7 @@ class ProjectService
 
     public function editProject($data)
     {
-        global $table_pj, $table_ps;
+        global $table_pj, $table_ps, $table_fl;
 
 
         $query = "UPDATE `$table_pj`
@@ -143,9 +185,6 @@ class ProjectService
                         `pojCus` = :pojCus,
                         `pojStatus` = :pojStatus,
                         `pojDocStatus` = :pojDocStatus,
-                        `pojImage` = :pojImage,
-                        `pojFile` = :pojFile,
-                        `pojPDF` = :pojPDF,
                         `pojName` = :pojName,
                         `pojType` = :pojType,
                         `pojCODE` = :pojCODE,
@@ -189,9 +228,6 @@ class ProjectService
         $stmt->bindParam(':pojCus', $data->pojCus);
         $stmt->bindParam(':pojStatus', $data->pojStatus);
         $stmt->bindParam(':pojDocStatus', $data->pojDocStatus);
-        $stmt->bindParam(':pojImage', $data->pojImage);
-        $stmt->bindParam(':pojFile', $data->pojFile);
-        $stmt->bindParam(':pojPDF', $data->pojPDF);
         $stmt->bindParam(':pojName', $data->pojName);
         $stmt->bindParam(':pojType', $data->pojType);
         $stmt->bindParam(':pojCODE', $data->pojCODE);
@@ -226,12 +262,61 @@ class ProjectService
 
         $stmt->execute();
         $stmt = null;
-
+        
         $query = "DELETE FROM `$table_ps` WHERE `pojServiceCode` = :pojServiceCode";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':pojServiceCode', $data->pojServiceCode);
         $stmt->execute();
         $stmt = null;
+
+        if(!empty($data->pojImage)){
+            $datax = explode('|',$data->pojImage);
+            foreach($datax as $pojImage){
+                $query = "INSERT INTO `$table_fl` 
+                            SET `fileCode` = :pojServiceCode,
+                                `fileType` = 'pojImage',
+                                `filePath` = :part,
+                                `fileCreate` = now()
+                            ";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(':pojServiceCode', $data->pojServiceCode);
+                $stmt->bindParam(':part', $pojImage);
+                $stmt->execute();
+                $stmt = null;
+            }
+        }
+        if(!empty($data->pojFile)){
+            $datax = explode('|',$data->pojFile);
+            foreach($datax as $pojFile){
+                $query = "INSERT INTO `$table_fl` 
+                            SET `fileCode` = :pojServiceCode,
+                                `fileType` = 'pojFile',
+                                `filePath` = :part,
+                                `fileCreate` = now()
+                            ";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(':pojServiceCode', $data->pojServiceCode);
+                $stmt->bindParam(':part', $pojFile);
+                $stmt->execute();
+                $stmt = null;
+            }
+        }
+        if(!empty($data->pojPDF)){
+            $datax = explode('|',$data->pojPDF);
+            foreach($datax as $pojPDF){
+                $query = "INSERT INTO `$table_fl` 
+                            SET `fileCode` = :pojServiceCode,
+                                `fileType` = 'pojPDF',
+                                `filePath` = :part,
+                                `fileCreate` = now()
+                            ";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(':pojServiceCode', $data->pojServiceCode);
+                $stmt->bindParam(':part', $pojPDF);
+                $stmt->execute();
+                $stmt = null;
+            }
+        }
 
         include_once $_SERVER['DOCUMENT_ROOT'] . '/config/globalfuction.php';
         $i = 0;
@@ -288,6 +373,36 @@ class ProjectService
         return $stmt;
     }
 
+    public function viewProjectFile($code=null,$type=null,$id =null)
+    {
+        global $table_fl;
+if(empty($id)){
+    $wid = "WHERE `fileCode` = '$code' AND `fileType` = '$type' ;";
+}else{
+    $wid = "WHERE `fileID` = '$id' ;";
+}
+
+        $query = " SELECT * FROM `$table_fl` $wid ";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    public function deleteProjectFile($id)
+    {
+        global $table_fl;
+        
+        $query = "DELETE FROM `$table_fl` WHERE `fileID` = :fileID";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':fileID', $id);
+        $stmt->execute();
+        $stmt = null;
+
+        return true;
+    }
+    
+
     public function viewQR($data = null, $g = null)
     {
         global $table_ps, $table_pj;
@@ -319,5 +434,31 @@ class ProjectService
         $stmt->execute();
 
         return $stmt;
+    }
+
+    public function countProject()
+    {
+        global $table_pj;
+
+        $query = " SELECT COUNT(1) AS counters FROM `$table_pj`  ";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $row['counters'];
+    }
+
+    public function countService()
+    {
+        global $table_ps;
+
+        $query = " SELECT COUNT(1) AS counters FROM `$table_ps`  ";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $row['counters'];
     }
 }

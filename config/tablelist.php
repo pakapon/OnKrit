@@ -11,9 +11,10 @@ $table_po           = 'product';
 $table_pj           = 'project';
 $table_ps           = 'projectService';
 $table_st           = 'documentstore';
+$table_fl           = 'file';
 
 $setWeburl[0]   = "127.0.0.1:8005";
-$setWeburl[1]   = "127.0.0.1:8005";
+$setWeburl[1]   = "https://app.onkritpower.com/";
 
 $websiteUrl     = $setWeburl[$is_pro];
 

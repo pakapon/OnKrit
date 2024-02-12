@@ -15,7 +15,6 @@ $data = new stdClass;
 $data->id = $_GET['id'];
 
 $result = $prjService->viewQR($data, 1);
-$counter = $result->rowCount();
 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
     $projectAddr = $row['pojName'] . ' ' . $row['pojAddr'] . ' ' . $row['pojTumbol'] . ' ' . $row['pojAumper'] . ' ' . $row['pojProvince'] . ' ' . $row['pojPost'];
@@ -34,7 +33,7 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $pojPhaseQty = $row['pojPhaseQty'];
     $pojTotalWatt = $row['pojTotalWatt'];
     $pojPhase = $row['pojPhase'];
-    $headerS = $cusName . ", " . $pojPhaseQty . ", " . $pojTotalWatt . ", " . $pojPhase;
+    $headerS = $cusName . ", " . $pojPhaseQty . " แผง, " . number_format($pojTotalWatt, 0) . " KWP, " . $pojPhase . " PHASE";
     $pojWarranty = $row['pojWarranty'];
     $pojStartWarranty = convertDBFormatToFulldate($row['pojStartWarranty']);
     $pojEndWarranty = convertDBFormatToFulldate($row['pojEndWarranty']);
@@ -183,7 +182,10 @@ $result = null;
                                                     </td>
                                                     <td class="fs-13 text-end"><?= $pojEndWarranty ?></td>
                                                 </tr>
-
+                                                <?php
+                                                $result = $prjService->viewQR($data);
+                                                $counter = $result->rowCount();
+                                                ?>
                                                 <tr>
                                                     <th scope="row">04</th>
                                                     <td class="text-start">
@@ -193,9 +195,6 @@ $result = null;
                                                     <td class="fs-13 text-end"><?= $counter ?> ครั้ง</td>
                                                 </tr>
                                                 <?php
-
-                                                $result = $prjService->viewQR($data);
-                                                $counter = $result->rowCount();
                                                 $n = 1;
                                                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                                                 ?>
@@ -318,19 +317,18 @@ $result = null;
                             <!--end col-->
                         </div>
                         <!--end row-->
+                        <img src="./pdf/onkritPage2.jpg" alt="OnkritPage2" class="print-only" >
+                        <img src="./pdf/onkritPage1.jpg" alt="OnkritPage1" class="print-only" >
                     </div>
                     <!--end card-->
                 </div>
                 <!--end col-->
             </div>
             <!--end row-->
-
-
         </div>
         <!-- container-fluid -->
     </div>
     <!-- End Page-content -->
-
     <footer class="footer">
         <div class="container-fluid">
             <div class="row">

@@ -1,3 +1,27 @@
+<?php
+include_once $_SERVER['DOCUMENT_ROOT'] . '/controller/Auth.php';
+session_start();
+
+if (!empty($_POST['username'])) {
+
+    $databaseService = new DatabaseService();
+    $authService = new AuthService($databaseService);
+    $data = new stdClass();
+
+    $data->users = $_POST['username'];
+    $data->passWord = $_POST['password-input'];
+    $tokens = $authService->loginUser($data);
+
+    if (empty($tokens)) {
+        $error_message = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+    }
+
+    $_SESSION["token"] = $tokens['token'];
+    $_SESSION["refreshToken"]  = $tokens['refreshToken'];
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
 
@@ -18,28 +42,9 @@
     <link href="assets/css/custom.css" rel="stylesheet" type="text/css" />
 
     <?php
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/controller/Auth.php';
-
-    if (!empty($_POST['username'])) {
-
-        $databaseService = new DatabaseService();
-        $authService = new AuthService($databaseService);
-        $data = new stdClass();
-
-        $data->users = $_POST['username'];
-        $data->passWord = $_POST['password-input'];
-        $tokens = $authService->loginUser($data);
-
-        if (empty($tokens)) {
-            $error_message = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
-        }
-        session_start();
-        $_SESSION["token"] = $tokens['token'];
-        $_SESSION["refreshToken"]  = $tokens['refreshToken'];
-    }
     if (!empty($_SESSION['token'])) {
     ?>
-        <div class="modal fade bs-example-modal-center show"  style="display: block;background-color: #000000e8; " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block;">
+        <div class="modal fade bs-example-modal-center show" style="display: block;background-color: #000000e8; " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block;">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body text-center p-5">
@@ -57,7 +62,7 @@
     }
     if (isset($error_message)) {
     ?>
-        <div class="modal fade bs-example-modal-center show"  style="display: block;background-color: #000000e8; " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block;">
+        <div class="modal fade bs-example-modal-center show" style="display: block;background-color: #000000e8; " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block;">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body text-center p-5">

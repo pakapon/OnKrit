@@ -30,9 +30,6 @@ if ($_GET["id"]) {
             $pojCus = $row["pojCus"];
             $pojStatus = $row["pojStatus"];
             $pojDocStatus = $row["pojDocStatus"];
-            $pojImage = $row["pojImage"];
-            $pojFile = $row["pojFile"];
-            $pojPDF = $row["pojPDF"];
             $pojName = $row["pojName"];
             $pojTypea = $row["pojType"];
             $pojCODE = $row["pojCODE"];
@@ -93,39 +90,26 @@ if ($_GET["id"]) {
 }
 
 if (!empty($_POST['pojName'])) {
-    // อัพโหลดรูปภาพ
-    $uploadedImages = uploadFilesPS($_FILES['ssss']);
-    // อัพโหลดเอกสาร
-    $uploadedFiles = uploadFilesPS($_FILES['sssss']);
-
     $data = new stdClass();
+    
 
     $ic1 = uploadFilesPS($_FILES["pojImage"]);
-    if ($ic1 == null) {
-        $i1 = $pojImage;
-    } else {
-        $i1 = $ic1;
+    if ($ic1 != null) {
+        $data->pojImage = $ic1;
     }
     $ic2 = uploadFilesPS($_FILES["pojFile"]);
-    if ($ic2 == null) {
-        $i2 = $pojFile;
-    } else {
-        $i2 = $ic2;
+    if ($ic2 != null) {
+        $data->pojFile = $i2;
     }
     $ic3 = uploadFilesPS($_FILES["pojPDF"]);
-    if ($ic3 == null) {
-        $i3 = $pojPDF;
-    } else {
-        $i3 = $ic3;
+    if ($ic3 != null) {
+        $data->pojPDF = $i3;
     }
 
     $data->pojID = $_GET["id"];
     $data->pojCus = $_POST["pojCus"];
     $data->pojStatus = $_POST["pojStatus"];
     $data->pojDocStatus = $_POST["pojDocStatus"];
-    $data->pojImage = $i1;
-    $data->pojFile = $i2;
-    $data->pojPDF = $i3;
     $data->pojName = $_POST["pojName"];
     $data->pojType = $_POST["pojType"];
     $data->pojCODE = $_POST["pojCODE"];
@@ -256,40 +240,16 @@ if (!empty($_POST['pojName'])) {
                                     <div class="col-xxl-3 col-md-6">
                                         <label for="exampleDataList" class="form-label fs-15 text-dark">รูปในโครงการ
                                             <span class="text-danger">*(.jpg ไม่เกิน 30 รูป)</span></label>
-                                        <input class="form-control" type="file" id="pojImage" name="pojImage[]" multiple>
-                                        <?php
-                                        $file = explode("|", $pojImage);
-                                        foreach ($file as $fileData) {
-                                            echo '<h5 class="fs-13 mb-1"><a href="' . trim($fileData) . '" class=" fs-16" target="_blank">#' . str_replace("../uploads/", "", trim($fileData)) . '</a></h5>';
-                                        }
-                                        $file = null;
-                                        $fileData = null;
-                                        ?>
+                                        <input class="form-control" type="file" id="pojImage" name="pojImage[]" accept=".jpg" multiple>
                                     </div>
                                     <div class="col-xxl-3 col-md-6">
                                         <label for="exampleDataList" class="form-label fs-15 text-dark">เอกสารการขออนุญาต <span class="text-danger">*(.pdf ไม่เกิน 5ไฟล์)</span></label>
-                                        <input class="form-control" type="file" id="pojFile" name="pojFile[]" multiple>
-                                        <?php
-                                        $file = explode("|", $pojFile);
-                                        foreach ($file as $fileData) {
-                                            echo '<h5 class="fs-13 mb-1"><a href="' . trim($fileData) . '" class=" fs-16" target="_blank">#' . str_replace("../uploads/", "", trim($fileData)) . '</a></h5>';
-                                        }
-                                        $file = null;
-                                        $fileData = null;
-                                        ?>
+                                        <input class="form-control" type="file" id="pojFile" name="pojFile[]" accept=".pdf" accept=".pdf" multiple>
                                     </div>
                                     <div class="col-xxl-3 col-md-6">
                                         <label for="exampleDataList" class="form-label fs-15 text-dark">เอกสารแนบโครงการ
                                             <span class="text-danger">*(.pdf ไม่เกิน 5ไฟล์)</span></label>
                                         <input class="form-control" type="file" id="pojPDF" name="pojPDF[]" multiple>
-                                        <?php
-                                        $file = explode("|", $pojPDF);
-                                        foreach ($file as $fileData) {
-                                            echo '<h5 class="fs-13 mb-1"><a href="' . trim($fileData) . '" class=" fs-16" target="_blank">#' . str_replace("../uploads/", "", trim($fileData)) . '</a></h5>';
-                                        }
-                                        $file = null;
-                                        $fileData = null;
-                                        ?>
                                     </div>
                                     <div class="col-12 mt-5">
                                         <h5 class="fs-18 fw-bold ">รายละเอียดโครงการ</h5>
@@ -511,7 +471,8 @@ if (!empty($_POST['pojName'])) {
                                                                     <th scope="row"><?= $s ?></th>
                                                                     <td>
                                                                         <select class="form-control1 form-control-sm fs-12" id="pojListProduct" name="pojListProduct[]" aria-label="Default select example">
-                                                                            <option value="<?= trim($lps) ?>"><?= trim($lps) ?></option>
+                                                                            <option value="<?= trim($lps) ?>">
+                                                                                <?= trim($lps) ?></option>
                                                                         </select>
                                                                     </td>
                                                                     <td>
@@ -693,13 +654,134 @@ if (!empty($_POST['pojName'])) {
                                     <div class="hstack gap-2 justify-content-center mt-5">
 
                                         <button type="button" class="btn btn-light fs-18" data-bs-dismiss="modal">ยกเลิก</button>
-                                        <a href="javascript:void(0);" class="btn btn-primary fs-18" onclick="readExcelFile()">ยืนยันการทำรายการ</a>
+                                        <a href="javascript:void(0);" class="btn btn-primary fs-18" onclick="readExcelFile()" data-bs-dismiss="modal">ยืนยันการทำรายการ</a>
                                     </div>
                                 </div>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
+
+
+                <div class="card-body" style="padding: 15px;background-color: #f9f9f9;">
+                    <div class="col-12 mt-5">
+                        <h5 class="fs-18 fw-bold mb-4 ">รูปถ่ายและเอกสารโครงการ</h5>
+                    </div>
+
+                    <ul class="nav nav-tabs mb-3" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active fs-20" data-bs-toggle="tab" href="#product4" role="tab" aria-selected="false" tabindex="-1">
+                                รูปในโครงการ
+                            </a>
+                        </li>
+                        <li class="nav-item fs-20" role="presentation">
+                            <a class="nav-link " data-bs-toggle="tab" href="#product5" role="tab" aria-selected="true">
+                                เอกสารการขออนุญาต
+                            </a>
+                        </li>
+
+                        <li class="nav-item fs-20" role="presentation">
+                            <a class="nav-link " data-bs-toggle="tab" href="#product6" role="tab" aria-selected="true">
+                                เอกสารแนบโครงการ
+                            </a>
+                        </li>
+
+
+
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content  text-muted">
+
+
+                        <div class="tab-pane active" id="product4" role="tabpanel">
+
+                            <div class="tab-content text-muted">
+                                <div class="tab-pane active show" id="developers" role="tabpanel">
+                                    <div class="row gy-4">
+                                        <?php
+                                        $result_im = $prjService->viewProjectFile($pojServiceCode, 'pojImage');
+                                        while ($row_m = $result_im->fetch(PDO::FETCH_ASSOC)) {
+                                        ?>
+                                            <div class="col-xxl-3 col-md-6">
+                                                <div class="card" id="imageCard<?= $row_m["fileID"] ?>">
+                                                    <img class="card-img-top img-fluid" src="<?= $row_m["filePath"] ?>" alt="Card image cap">
+                                                    <div class="card-footer text-center">
+                                                        <button class="btn btn-outline-danger material-shadow-none text-center" type="button" data-index="<?= $row_m["fileID"] ?>" onclick="removeImage(this)">ลบไฟล์</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
+                                    <!--end row-->
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="tab-pane " id="product5" role="tabpane2">
+                            <div class="row gy-4">
+                                <table class="table table-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ชื่อไฟล์</th>
+                                            <th scope="col">จัดการ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $result_im2 = $prjService->viewProjectFile($pojServiceCode, 'pojFile');
+                                        while ($row_m2 = $result_im2->fetch(PDO::FETCH_ASSOC)) {
+                                        ?>
+                                            <tr id="imageCard<?= $row_m2["fileID"] ?>">
+                                                <th scope="row"><a href="<?= $row_m2['filePath'] ?>" class=" fs-16" target="_blank">#<?= str_replace("../uploads/", "", $row_m2['filePath']) ?></a></a>
+                                                </th>
+                                                <td>
+                                                    <button class="btn btn-outline-danger material-shadow-none text-center" type="button" data-index="<?= $row_m2["fileID"] ?>" onclick="removeImage(this)">ลบไฟล์</button>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane " id="product6" role="tabpane2">
+                            <div class="row gy-4">
+                                <div class="row gy-4">
+                                    <table class="table table-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ชื่อไฟล์</th>
+                                                <th scope="col">จัดการ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $result_im3 = $prjService->viewProjectFile($pojServiceCode, 'pojPDF');
+                                            while ($row_m3 = $result_im3->fetch(PDO::FETCH_ASSOC)) {
+                                            ?>
+                                                <tr id="imageCard<?= $row_m3["fileID"] ?>">
+                                                    <th scope="row"><a href="<?= $row_m3['filePath'] ?>" class=" fs-16" target="_blank">#<?= str_replace("../uploads/", "", $row_m3['filePath']) ?></a></a>
+                                                    </th>
+                                                    <td>
+                                                        <button class="btn btn-outline-danger material-shadow-none text-center" type="button" data-index="<?= $row_m3["fileID"] ?>" onclick="removeImage(this)">ลบไฟล์</button>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
                 <div class="modal fade bs-example-modal-center1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -717,7 +799,7 @@ if (!empty($_POST['pojName'])) {
                                     </div>
                                     <div class="hstack gap-2 justify-content-center mt-5">
                                         <button type="button" class="btn btn-light fs-18" data-bs-dismiss="modal">ยกเลิก</button>
-                                        <a href="javascript:void(0);" onclick="changeServiceStatusConfirm()" class="btn btn-primary fs-18">ยืนยันการทำรายการ</a>
+                                        <a href="javascript:void(0);" onclick="changeServiceStatusConfirm()" class="btn btn-primary fs-18" data-bs-dismiss="modal">ยืนยันการทำรายการ</a>
                                     </div>
                                 </div>
                             </div>
@@ -1086,5 +1168,30 @@ if (!empty($_POST['pojName'])) {
 
     function simulateButtonClick() {
         document.getElementById('submitBtn').click();
+    }
+
+    function removeImage(element) {
+        var fileID = element.getAttribute("data-index");
+
+        if (confirm("คุณแน่ใจหรือไม่ที่จะลบไฟล์นี้?")) {
+            // สร้าง FormData object เพื่อส่งข้อมูล
+            var formData = new FormData();
+            formData.append('index', fileID);
+
+            // ส่ง AJAX request
+            fetch('./project/delete_image.php', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data); // แสดงผลลัพธ์
+                    // ลบ card ที่มีรูปภาพออกจาก UI
+                    document.getElementById('imageCard' + fileID).remove();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
     }
 </script>

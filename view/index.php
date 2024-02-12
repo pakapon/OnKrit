@@ -260,7 +260,7 @@ switch ($_GET["page"]) {
                         </li>
                         <li class="nav-item">
                             <a class="nav-link menu-link <?php echo $active[4] == 1 ? 'active' : ''; ?>" href="#sidebarApps4" data-bs-toggle="collapse" role="button" aria-expanded="<?php echo $active[4] == 1 ? 'true' : 'false'; ?>" aria-controls="sidebarApps">
-                                <i data-feather="trello" class="icon-dual"></i> <span data-key="t-apps2">สินค้า</span>
+                                <i data-feather="shopping-bag" class="icon-dual"></i> <span data-key="t-apps2">สินค้า</span>
                             </a>
                             <div class="collapse menu-dropdown <?php echo $active[4] == 1 ? 'show' : ''; ?>" id="sidebarApps4">
                                 <ul class="nav nav-sm flex-column">

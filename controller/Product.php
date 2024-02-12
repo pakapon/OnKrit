@@ -153,4 +153,17 @@ class ProductService
         $stmt->execute();
         return $stmt;
     }
+
+    public function countProduct()
+    {
+        global $table_po;
+
+        $query = " SELECT COUNT(1) AS counters FROM `$table_po`  ";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $row['counters'];
+    }
 }
