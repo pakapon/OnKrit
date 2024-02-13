@@ -262,12 +262,6 @@ class ProjectService
 
         $stmt->execute();
         $stmt = null;
-        
-        $query = "DELETE FROM `$table_ps` WHERE `pojServiceCode` = :pojServiceCode";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':pojServiceCode', $data->pojServiceCode);
-        $stmt->execute();
-        $stmt = null;
 
         if(!empty($data->pojImage)){
             $datax = explode('|',$data->pojImage);
@@ -319,10 +313,17 @@ class ProjectService
         }
 
         include_once $_SERVER['DOCUMENT_ROOT'] . '/config/globalfuction.php';
+
+        $query2 = "DELETE FROM `$table_ps` WHERE `pojServiceCode` = :pojServiceCode";
+        $stmt2 = $this->conn->prepare($query2);
+        $stmt2->bindParam(':pojServiceCode', $data->pojServiceCode);
+        $stmt2->execute();
+        $stmt2 = null;
+
         $i = 0;
         foreach ($data->pojServiceTopic as $topic) {
             $date = convertDateToDBFormat($data->pojServiceDate[$i]);
-            $query = " INSERT INTO `$table_ps`
+            $query3 = " INSERT INTO `$table_ps`
                             SET
                                 `pojServiceCode` = :pojServiceCode,
                                 `pojServiceDate` = :pojServiceDate,
@@ -331,14 +332,14 @@ class ProjectService
                                 `pojServiceStatus` = :pojServiceStatus
             ";
 
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':pojServiceCode', $data->pojServiceCode);
-            $stmt->bindParam(':pojServiceDate', $date);
-            $stmt->bindParam(':pojServiceTopic', $topic);
-            $stmt->bindParam(':pojServicePrices', $data->pojServicePrices[$i]);
-            $stmt->bindParam(':pojServiceStatus', $data->pojServiceStatus[$i]);
-            $stmt->execute();
-            $stmt = null;
+            $stmt3 = $this->conn->prepare($query3);
+            $stmt3->bindParam(':pojServiceCode', $data->pojServiceCode);
+            $stmt3->bindParam(':pojServiceDate', $date);
+            $stmt3->bindParam(':pojServiceTopic', $topic);
+            $stmt3->bindParam(':pojServicePrices', $data->pojServicePrices[$i]);
+            $stmt3->bindParam(':pojServiceStatus', $data->pojServiceStatus[$i]);
+            $stmt3->execute();
+            $stmt3 = null;
             $i++;
         }
 

@@ -271,7 +271,7 @@ if (!empty($_POST['pojName'])) {
                                     <div class="col-xxl-3 col-md-6">
                                         <div>
                                             <label for="labelInput" class="form-label fs-15 text-dark">เลขที่โครงการ</label>
-                                            <input type="text" class="form-control" id="pojCODE" name="pojCODE" value="<?= $pojCODE ?>" required>
+                                            <input type="text" class="form-control" id="pojCODE" name="pojCODE" value="<?= $pojCODE ?>">
                                         </div>
                                     </div>
                                     <div class="col-xxl-3 col-md-6">
@@ -1194,4 +1194,22 @@ if (!empty($_POST['pojName'])) {
                 });
         }
     }
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function calculateTotalWatt() {
+        var pojWp = document.getElementById('pojWp').value; // รับค่ากำลังไฟต่อแผง
+        var pojPhaseQty = document.getElementById('pojPhaseQty').value; // รับค่าจำนวนแผง
+        var totalWatt = pojWp * pojPhaseQty / 1000; // คำนวณกำลังไฟรวมและแปลงเป็น kWp
+
+        // ตรวจสอบความถูกต้องของข้อมูลและแสดงผล
+        if(!isNaN(totalWatt)) {
+            document.getElementById('pojTotalWatt').value = totalWatt.toFixed(2); // แสดงผลลัพธ์ที่ pojTotalWatt
+        }
+    }
+
+    // เพิ่ม Event Listener สำหรับการเปลี่ยนแปลงค่า
+    document.getElementById('pojWp').addEventListener('input', calculateTotalWatt);
+    document.getElementById('pojPhaseQty').addEventListener('input', calculateTotalWatt);
+});
 </script>

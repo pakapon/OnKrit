@@ -96,7 +96,7 @@ $data->type = $_POST["type"];
                             <div class="col-sm-4 align-self-center">
                             </div>
                             <div class="col-sm-4 align-self-end text-right" style="text-align-last: right !important;">
-                                <a class="btn btn-primary waves-effect waves-light" href="./pdf/servicelist.php?staus=<?= $data->staus ?>&start=<?= $data->start ?>&end=<?= $data->end ?>&type=<?= $data->type ?>" role="button">Download PDF
+                                <a class="btn btn-primary waves-effect waves-light" target=”_blank” href="./pdf/servicelist.php?staus=<?= $data->staus ?>&start=<?= $data->start ?>&end=<?= $data->end ?>&type=<?= $data->type ?>" role="button">Download PDF
                                     File</a>
                             </div>
                         </div>
@@ -153,8 +153,8 @@ $data->type = $_POST["type"];
                                     ?>
 
                                     <tr>
-                                        <td><?= $pojCODE ?></td>
                                         <td><?= $pojName ?></td>
+                                        <td><?= $pojType ?></td>
                                         <td><?= $cusName ?></td>
                                         <td><?= $cusTell ?></td>
                                         <td><?= $cusMail ?></td>

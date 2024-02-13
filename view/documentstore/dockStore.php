@@ -35,8 +35,7 @@ if (!empty($_POST['dstName'])) {
 }
 if ($_GET["delete"] == 1) {
     $data = new stdClass();
-    $data->catID  = $_GET['id'];
-    $create = $proService->deleteCategory($data);
+    $create = $docService->deleteCategory($_GET['id']);
 ?>
     <div class="modal fade bs-example-modal-center show"  style="display: block;background-color: #000000e8; " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block;">
         <div class="modal-dialog modal-dialog-centered">
@@ -201,7 +200,7 @@ if ($_GET["delete"] == 1) {
         var confirmAction = confirm("คุณแน่ใจหรือไม่ว่าต้องการลบ?");
         if (confirmAction) {
             // ผู้ใช้ยืนยันการลบ, ดำเนินการต่อไปยัง URL ลบ
-            window.location.href = "home.php?page=dockStore&delete=1&id=" + proID;
+            window.location.href = "index.php?page=dockStore&delete=1&id=" + proID;
         } else {
             // ผู้ใช้ยกเลิกการลบ
             // console.log("การลบถูกยกเลิก");

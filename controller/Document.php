@@ -50,5 +50,17 @@ class docstoreService
         $stmt->execute();
         return $stmt;
     }
-    
+
+    public function deleteCategory($id)
+    {
+        global $table_st;
+        $query = "DELETE FROM `$table_st` WHERE `dstID` = '$id' ";
+        $stmt = $this->conn->prepare($query);
+       
+        if ($stmt->execute()) {
+            return "ลบข้อมูลสำเร็จ";
+        } else {
+            return "บันทึกข้อมูลไม่สำเร็จ";
+        }
+    }
 }

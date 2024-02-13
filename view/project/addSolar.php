@@ -285,7 +285,6 @@ if (!empty($_POST['pojName'])) {
                                                     } else {
                                                     ?>
                                                         <div class="row gy-2 mt-3">
-
                                                             <div class="col-xxl-3 col-md-4 ">
                                                                 <label for="labelInput" class="form-label fs-15 text-dark">กำลังไฟต่อแผง(Wp/แผง)<span class="text-danger">*</span></label>
                                                                 <input type="text" class="form-control" id="pojWp" name="pojWp">
@@ -667,7 +666,7 @@ if (!empty($_POST['pojName'])) {
                         <td>
                             <input class="form-control1 form-control-sm fs-12 serialno"
                                 id="pojListSerial" name="pojListSerial[]"
-                                type="text" placeholder="1101111111111" data-serialno="${rowNumber}">
+                                type="text" placeholder="-" data-serialno="${rowNumber}">
                         </td>
                         <td>
                             <input type="text"
@@ -887,4 +886,22 @@ if (!empty($_POST['pojName'])) {
     function simulateButtonClick() {
         document.getElementById('submitBtn').click();
     }
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function calculateTotalWatt() {
+        var pojWp = document.getElementById('pojWp').value; // รับค่ากำลังไฟต่อแผง
+        var pojPhaseQty = document.getElementById('pojPhaseQty').value; // รับค่าจำนวนแผง
+        var totalWatt = pojWp * pojPhaseQty / 1000; // คำนวณกำลังไฟรวมและแปลงเป็น kWp
+
+        // ตรวจสอบความถูกต้องของข้อมูลและแสดงผล
+        if(!isNaN(totalWatt)) {
+            document.getElementById('pojTotalWatt').value = totalWatt.toFixed(2); // แสดงผลลัพธ์ที่ pojTotalWatt
+        }
+    }
+
+    // เพิ่ม Event Listener สำหรับการเปลี่ยนแปลงค่า
+    document.getElementById('pojWp').addEventListener('input', calculateTotalWatt);
+    document.getElementById('pojPhaseQty').addEventListener('input', calculateTotalWatt);
+});
 </script>

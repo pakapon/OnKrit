@@ -65,7 +65,7 @@ $data = null;
                                             $i++;
                                             $pojID = $row["pojID"];
                                             $pojName = $row["pojName"];
-                                            $pojCODE = $row["pojCODE"];
+                                            $pojCODE = $row["pojCODE"] == '' ? '-' : $row["pojCODE"];
                                             $pojStartWarranty = $row["pojStartWarranty"];
                                             $pojEndWarranty = $row["pojEndWarranty"];
 

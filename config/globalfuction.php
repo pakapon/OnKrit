@@ -213,6 +213,16 @@ function convertDBFormatToDate($dateFromDB)
     }
 }
 
+function convertDBFormatToday($dateFromDB)
+{
+    $date = DateTime::createFromFormat('Y-m-d', $dateFromDB);
+    if ($date) {
+        return $date->format('d/m/Y');
+    } else {
+        return false;
+    }
+}
+
 function getStatusButton($status)
 {
     switch ($status) {

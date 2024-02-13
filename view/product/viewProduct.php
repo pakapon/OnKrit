@@ -167,7 +167,7 @@ if ($_GET["delete"] == 1) {
         var confirmAction = confirm("คุณแน่ใจหรือไม่ว่าต้องการลบ?");
         if (confirmAction) {
             // ผู้ใช้ยืนยันการลบ, ดำเนินการต่อไปยัง URL ลบ
-            window.location.href = "home.php?page=viewProduct&delete=1&id=" + proID;
+            window.location.href = "index.php?page=viewProduct&delete=1&id=" + proID;
         } else {
             // ผู้ใช้ยกเลิกการลบ
             // console.log("การลบถูกยกเลิก");

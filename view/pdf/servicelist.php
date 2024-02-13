@@ -113,7 +113,7 @@ $data->type = $_GET['type'];
                 $result_c = null;
             ?>
                 <tr>
-                    <td><?= convertDateStToDMY($row['pojServiceDate']) ?></td>
+                    <td><?= convertDBFormatToday($row['pojServiceDate']) ?></td>
                     <td><?= $projectAddr ?></td>
                     <td><?= $cusName ?></td>
                     <td><?= $row['pojServiceTopic'] ?></td>
