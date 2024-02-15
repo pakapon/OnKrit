@@ -1036,13 +1036,14 @@ if (!empty($_POST['pojName'])) {
             const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
             var excelArray = XLSX.utils.sheet_to_json(firstSheet);
 
+            var i = 0;
             formFileNoArray.forEach((element) => {
-                document.getElementsByClassName('lotno')[(element - 1)].value = excelArray[(element - 1)]
+                document.getElementsByClassName('lotno')[(element - 1)].value = excelArray[(i)]
                     .ln;
-                document.getElementsByClassName('serialno')[(element - 1)].value = excelArray[(element - 1)]
+                document.getElementsByClassName('serialno')[(element - 1)].value = excelArray[(i)]
                     .sn;
+                i++;
             });
-
 
         };
 
@@ -1053,7 +1054,8 @@ if (!empty($_POST['pojName'])) {
         var range = formFileNo.split("-");
 
         var start = parseInt(range[0]);
-        var end = parseInt(range[1]);
+        
+        var end = range.length > 1 ? parseInt(range[1]) : start;
 
         var result = [];
 
@@ -1062,7 +1064,6 @@ if (!empty($_POST['pojName'])) {
         }
 
         return result;
-
     }
 
     // ----------------------------------------------------------------------------------------------------
