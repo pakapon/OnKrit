@@ -599,16 +599,17 @@ if (!empty($_POST['pojName'])) {
         var pojProductQty = document.getElementById('pojProductQty').value;
         var pojProductStartWaranty = document.getElementById('pojProductStartWaranty').value;
         var pojProductEndWaranty = document.getElementById('pojProductEndWaranty').value;
+        var currentRows = document.querySelectorAll('.SubProductRow').length;
 
         if (pojProductQty) {
-            document.getElementById('addSubProductBody').innerHTML = ``;
+            // document.getElementById('addSubProductBody').innerHTML = ``;
             productLists.forEach(item => {
                 productListsOptionHtml_ +=
                     `<option value="${item}" ${pojProduct.trim() == item.trim() ? 'selected' : ''}>${item}</option>`;
             });
 
             for (let index = 0; index < pojProductQty; index++) {
-                var getHtml = createHtmlProductRow(index + 1, productListsOptionHtml_);
+                var getHtml = createHtmlProductRow(currentRows +index+ 1, productListsOptionHtml_);
                 document.getElementById('addSubProductBody').innerHTML += getHtml;
             }
 
@@ -759,7 +760,6 @@ if (!empty($_POST['pojName'])) {
                     .sn;
             });
 
-
         };
 
         reader.readAsArrayBuffer(file);
@@ -888,20 +888,20 @@ if (!empty($_POST['pojName'])) {
     }
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    function calculateTotalWatt() {
-        var pojWp = document.getElementById('pojWp').value; // รับค่ากำลังไฟต่อแผง
-        var pojPhaseQty = document.getElementById('pojPhaseQty').value; // รับค่าจำนวนแผง
-        var totalWatt = pojWp * pojPhaseQty / 1000; // คำนวณกำลังไฟรวมและแปลงเป็น kWp
+    document.addEventListener('DOMContentLoaded', function() {
+        function calculateTotalWatt() {
+            var pojWp = document.getElementById('pojWp').value; // รับค่ากำลังไฟต่อแผง
+            var pojPhaseQty = document.getElementById('pojPhaseQty').value; // รับค่าจำนวนแผง
+            var totalWatt = pojWp * pojPhaseQty / 1000; // คำนวณกำลังไฟรวมและแปลงเป็น kWp
 
-        // ตรวจสอบความถูกต้องของข้อมูลและแสดงผล
-        if(!isNaN(totalWatt)) {
-            document.getElementById('pojTotalWatt').value = totalWatt.toFixed(2); // แสดงผลลัพธ์ที่ pojTotalWatt
+            // ตรวจสอบความถูกต้องของข้อมูลและแสดงผล
+            if (!isNaN(totalWatt)) {
+                document.getElementById('pojTotalWatt').value = totalWatt.toFixed(2); // แสดงผลลัพธ์ที่ pojTotalWatt
+            }
         }
-    }
 
-    // เพิ่ม Event Listener สำหรับการเปลี่ยนแปลงค่า
-    document.getElementById('pojWp').addEventListener('input', calculateTotalWatt);
-    document.getElementById('pojPhaseQty').addEventListener('input', calculateTotalWatt);
-});
+        // เพิ่ม Event Listener สำหรับการเปลี่ยนแปลงค่า
+        document.getElementById('pojWp').addEventListener('input', calculateTotalWatt);
+        document.getElementById('pojPhaseQty').addEventListener('input', calculateTotalWatt);
+    });
 </script>

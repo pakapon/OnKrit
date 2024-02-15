@@ -68,6 +68,7 @@ $data = null;
                                             $pojCODE = $row["pojCODE"] == '' ? '-' : $row["pojCODE"];
                                             $pojStartWarranty = $row["pojStartWarranty"];
                                             $pojEndWarranty = $row["pojEndWarranty"];
+                                            $pojFullAddr = $row['pojAddr']." ". $row['pojTumbol']." ". $row['pojAumper']." ". $row['pojProvince']." ". $row['pojPost'];
 
                                             $pojStatus = getStatusButton($row["pojStatus"]);
                                             $pojDocStatus = getStatusButton($row["pojDocStatus"]);
@@ -96,7 +97,7 @@ $data = null;
                                                 <td><?= $cusName ?></td>
                                                 <td><?= $cusTell ?></td>
                                                 <td><?= $cusMail ?></td>
-                                                <td><?= $cusAddr ?></td>
+                                                <td><?= $pojFullAddr ?></td>
                                                 <td>เริ่ม : <?= $pojStartWarranty ?><br>ถึง : <?= $pojEndWarranty ?></td>
                                                 <td>
                                                     <?= $pojStatus ?>
