@@ -158,15 +158,7 @@ function uploadFilesPS($filesArray)
             }
         }
     }
-
-    // ตรวจสอบจำนวนไฟล์ที่อัพโหลดสำเร็จ
-    if (count($uploadedFiles) > 1) {
-        return implode("| ", $uploadedFiles);
-    } elseif (count($uploadedFiles) == 1) {
-        return $uploadedFiles[0];
-    }
-
-    return null;
+    return implode("| ", $uploadedFiles);
 }
 
 function grouptext($inputArray)

@@ -99,11 +99,11 @@ if (!empty($_POST['pojName'])) {
     }
     $ic2 = uploadFilesPS($_FILES["pojFile"]);
     if ($ic2 != null) {
-        $data->pojFile = $i2;
+        $data->pojFile = $ic2;
     }
     $ic3 = uploadFilesPS($_FILES["pojPDF"]);
     if ($ic3 != null) {
-        $data->pojPDF = $i3;
+        $data->pojPDF = $ic3;
     }
 
     $data->pojID = $_GET["id"];
@@ -244,12 +244,12 @@ if (!empty($_POST['pojName'])) {
                                     </div>
                                     <div class="col-xxl-3 col-md-6">
                                         <label for="exampleDataList" class="form-label fs-15 text-dark">เอกสารการขออนุญาต <span class="text-danger">*(.pdf ไม่เกิน 5ไฟล์)</span></label>
-                                        <input class="form-control" type="file" id="pojFile" name="pojFile[]" accept=".pdf" accept=".pdf" multiple>
+                                        <input class="form-control" type="file" id="pojFile" name="pojFile[]" accept=".pdf" multiple>
                                     </div>
                                     <div class="col-xxl-3 col-md-6">
                                         <label for="exampleDataList" class="form-label fs-15 text-dark">เอกสารแนบโครงการ
                                             <span class="text-danger">*(.pdf ไม่เกิน 5ไฟล์)</span></label>
-                                        <input class="form-control" type="file" id="pojPDF" name="pojPDF[]" multiple>
+                                        <input class="form-control" type="file" id="pojPDF" name="pojPDF[]" accept=".pdf" multiple>
                                     </div>
                                     <div class="col-12 mt-5">
                                         <h5 class="fs-18 fw-bold ">รายละเอียดโครงการ</h5>
