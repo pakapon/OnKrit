@@ -42,11 +42,6 @@ class ProjectService
                         `pojPhaseQty` = :pojPhaseQty,
                         `pojTotalWatt` = :pojTotalWatt,
                         `pojRemark` = :pojRemark,
-                        `pojProductWaranty` = :pojProductWaranty,
-                        `pojProductStartWaranty` = :pojProductStartWaranty,
-                        `pojProductEndWaranty` = :pojProductEndWaranty,
-                        `pojProduct` = :pojProduct,
-                        `pojProductQty` = :pojProductQty,
 
                         `pojListProduct` = :pojListProduct,
                         `pojListLot` = :pojListLot,
@@ -85,11 +80,18 @@ class ProjectService
         $stmt->bindParam(':pojPhaseQty', $data->pojPhaseQty);
         $stmt->bindParam(':pojTotalWatt', $data->pojTotalWatt);
         $stmt->bindParam(':pojRemark', $data->pojRemark);
-        $stmt->bindParam(':pojProductWaranty', $data->pojProductWaranty);
-        $stmt->bindParam(':pojProductStartWaranty', $data->pojProductStartWaranty);
-        $stmt->bindParam(':pojProductEndWaranty', $data->pojProductEndWaranty);
-        $stmt->bindParam(':pojProduct', $data->pojProduct);
-        $stmt->bindParam(':pojProductQty', $data->pojProductQty);
+
+
+        // `pojProductWaranty` = :pojProductWaranty,
+        // `pojProductStartWaranty` = :pojProductStartWaranty,
+        // `pojProductEndWaranty` = :pojProductEndWaranty,
+        // `pojProduct` = :pojProduct,
+        // `pojProductQty` = :pojProductQty,
+        // $stmt->bindParam(':pojProductWaranty', $data->pojProductWaranty);
+        // $stmt->bindParam(':pojProductStartWaranty', $data->pojProductStartWaranty);
+        // $stmt->bindParam(':pojProductEndWaranty', $data->pojProductEndWaranty);
+        // $stmt->bindParam(':pojProduct', $data->pojProduct);
+        // $stmt->bindParam(':pojProductQty', $data->pojProductQty);
 
         $stmt->bindParam(':pojListProduct', $data->pojListProduct);
         $stmt->bindParam(':pojListLot', $data->pojListLot);
@@ -205,11 +207,6 @@ class ProjectService
                         `pojPhaseQty` = :pojPhaseQty,
                         `pojTotalWatt` = :pojTotalWatt,
                         `pojRemark` = :pojRemark,
-                        `pojProductWaranty` = :pojProductWaranty,
-                        `pojProductStartWaranty` = :pojProductStartWaranty,
-                        `pojProductEndWaranty` = :pojProductEndWaranty,
-                        `pojProduct` = :pojProduct,
-                        `pojProductQty` = :pojProductQty,
 
                         `pojListProduct` = :pojListProduct,
                         `pojListLot` = :pojListLot,
@@ -248,11 +245,17 @@ class ProjectService
         $stmt->bindParam(':pojPhaseQty', $data->pojPhaseQty);
         $stmt->bindParam(':pojTotalWatt', $data->pojTotalWatt);
         $stmt->bindParam(':pojRemark', $data->pojRemark);
-        $stmt->bindParam(':pojProductWaranty', $data->pojProductWaranty);
-        $stmt->bindParam(':pojProductStartWaranty', $data->pojProductStartWaranty);
-        $stmt->bindParam(':pojProductEndWaranty', $data->pojProductEndWaranty);
-        $stmt->bindParam(':pojProduct', $data->pojProduct);
-        $stmt->bindParam(':pojProductQty', $data->pojProductQty);
+
+        // `pojProductWaranty` = :pojProductWaranty,
+        // `pojProductStartWaranty` = :pojProductStartWaranty,
+        // `pojProductEndWaranty` = :pojProductEndWaranty,
+        // `pojProduct` = :pojProduct,
+        // `pojProductQty` = :pojProductQty,
+        // $stmt->bindParam(':pojProductWaranty', $data->pojProductWaranty);
+        // $stmt->bindParam(':pojProductStartWaranty', $data->pojProductStartWaranty);
+        // $stmt->bindParam(':pojProductEndWaranty', $data->pojProductEndWaranty);
+        // $stmt->bindParam(':pojProduct', $data->pojProduct);
+        // $stmt->bindParam(':pojProductQty', $data->pojProductQty);
 
         $stmt->bindParam(':pojListProduct', $data->pojListProduct);
         $stmt->bindParam(':pojListLot', $data->pojListLot);

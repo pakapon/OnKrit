@@ -49,11 +49,11 @@ if (!empty($_POST['pojName'])) {
     $data->pojPhaseQty = $_POST["pojPhaseQty"];
     $data->pojTotalWatt = $_POST["pojTotalWatt"];
     $data->pojRemark = $_POST["pojRemark"];
-    $data->pojProductWaranty = $_POST["pojProductWaranty"];
-    $data->pojProductStartWaranty = convertDateToDBFormat($_POST["pojProductStartWaranty"]);
-    $data->pojProductEndWaranty = convertDateToDBFormat($_POST["pojProductEndWaranty"]);
-    $data->pojProduct = $_POST["pojProduct"];
-    $data->pojProductQty = $_POST["pojProductQty"];
+    // $data->pojProductWaranty = $_POST["pojProductWaranty"];
+    // $data->pojProductStartWaranty = convertDateToDBFormat($_POST["pojProductStartWaranty"]);
+    // $data->pojProductEndWaranty = convertDateToDBFormat($_POST["pojProductEndWaranty"]);
+    // $data->pojProduct = $_POST["pojProduct"];
+    // $data->pojProductQty = $_POST["pojProductQty"];
     $data->pojListProduct = grouptext($_POST["pojListProduct"]);
     $data->pojListLot = grouptext($_POST["pojListLot"]);
     $data->pojListSerial = grouptext($_POST["pojListSerial"]);
