@@ -66,6 +66,9 @@ if ($_GET["id"]) {
             $pojServiceStatus = $row["pojServiceStatus"];
             $pojServiceCode = $row["pojServiceCode"];
 
+            $pojContract = $row["pojContract"];
+            $pojContractTel = $row["pojContractTel"];        
+
             if (!empty($row['pojWp'])) {
                 $pojType = "โซล่าร์";
                 $header = "เพิ่มโครงการโซล่าร์เซลล์";
@@ -91,7 +94,7 @@ if ($_GET["id"]) {
 
 if (!empty($_POST['pojName'])) {
     $data = new stdClass();
-    
+
 
     $ic1 = uploadFilesPS($_FILES["pojImage"]);
     if ($ic1 != null) {
@@ -145,6 +148,9 @@ if (!empty($_POST['pojName'])) {
     $data->pojServiceTopic = ($_POST["pojServiceTopic"]);
     $data->pojServicePrices = ($_POST["pojServicePrices"]);
     $data->pojServiceStatus = ($_POST["pojServiceStatus"]);
+
+    $data->pojContract = ($_POST["pojContract"]);
+    $data->pojContractTel = ($_POST["pojContractTel"]);
 
     $data->pojServiceCode = $pojServiceCode;
 
@@ -254,6 +260,18 @@ if (!empty($_POST['pojName'])) {
                                     <div class="col-12 mt-5">
                                         <h5 class="fs-18 fw-bold ">รายละเอียดโครงการ</h5>
                                     </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        <div>
+                                            <label for="labelInput" class="form-label fs-15 text-dark">ชื่อผู้ติดต่อ</label>
+                                            <input type="text" class="form-control" id="pojContract" name="pojContract" value="<?= $pojContract ?>" >
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        <div>
+                                            <label for="labelInput" class="form-label fs-15 text-dark">เบอร์ติดต่อ</label>
+                                            <input type="text" class="form-control" id="pojContractTel" name="pojContractTel" value="<?= $pojContractTel ?>" >
+                                        </div>
+                                    </div>
                                     <div class="col-xxl-7 col-md-6">
                                         <div>
                                             <label for="labelInput" class="form-label fs-15 text-dark">ชื่อโครงการ<span class="text-danger">*</span></label>
@@ -340,12 +358,12 @@ if (!empty($_POST['pojName'])) {
                                                     </div>
                                                     <div class="col-xxl-3 col-md-4 ">
                                                         <label for="labelInput" class="form-label fs-15 text-dark">เริ่มรับประกันงานติดตั้ง</label>
-                                                        <input type="text" class="form-control flatpickr-input" data-provider="flatpickr" data-date-format="d M, Y" readonly="readonly" id="pojStartWarranty" name="pojStartWarranty" value="<?= $pojStartWarranty ?>">
+                                                        <input type="text" class="form-control flatpickr-input" data-provider="flatpickr" data-date-format="d M, Y" readonly="readonly" id="pojStartWarranty" name="pojStartWarranty" value="<?= convertDBFormatToDate($pojStartWarranty) ?>">
 
                                                     </div>
                                                     <div class="col-xxl-3 col-md-4 ">
                                                         <label for="labelInput" class="form-label fs-15 text-dark">สิ้นสุดประกันงานติดตั้ง</label>
-                                                        <input type="text" class="form-control flatpickr-input" data-provider="flatpickr" data-date-format="d M, Y" readonly="readonly" id="pojEndWarranty" name="pojEndWarranty" value="<?= $pojEndWarranty ?>">
+                                                        <input type="text" class="form-control flatpickr-input" data-provider="flatpickr" data-date-format="d M, Y" readonly="readonly" id="pojEndWarranty" name="pojEndWarranty" value="<?= convertDBFormatToDate($pojEndWarranty) ?>">
                                                     </div>
 
                                                     <div class="row gy-2">
@@ -892,7 +910,7 @@ if (!empty($_POST['pojName'])) {
             });
 
             for (let index = 0; index < pojProductQty; index++) {
-                var getHtml = createHtmlProductRow(currentRows +index+ 1, productListsOptionHtml_);
+                var getHtml = createHtmlProductRow(currentRows + index + 1, productListsOptionHtml_);
                 document.getElementById('addSubProductBody').innerHTML += getHtml;
             }
 
@@ -903,6 +921,9 @@ if (!empty($_POST['pojName'])) {
                 dateFormat: 'd M, Y',
             })
         }
+
+        document.getElementById('pojProductWaranty').value = 0;
+        document.getElementById('pojProductQty').value = 0;
     }
 
     function addSubProductBodyInRow() {
@@ -1054,7 +1075,7 @@ if (!empty($_POST['pojName'])) {
         var range = formFileNo.split("-");
 
         var start = parseInt(range[0]);
-        
+
         var end = range.length > 1 ? parseInt(range[1]) : start;
 
         var result = [];
@@ -1076,7 +1097,7 @@ if (!empty($_POST['pojName'])) {
                     </th>
                     <td>
                         <input type="text" class="form-control1 form-control-sm fs-12 flatpickr-input" data-provider="flatpickr"
-                            data-date-format="d M, Y" readonly="readonly" placeholder="24-01-2024" id="pojServiceDate" name="pojServiceDate[]">
+                            data-date-format="d M, Y" readonly="readonly" placeholder="24-01-2024" value="01 Jan, 1999" id="pojServiceDate" name="pojServiceDate[]">
                     </td>
                     <td>
                         <input class="form-control1 form-control-sm fs-12"
@@ -1084,7 +1105,7 @@ if (!empty($_POST['pojName'])) {
                     </td>
                     <td>
                         <input class="form-control1 form-control-sm fs-12"
-                            type="text" placeholder="0.00" id="pojServicePrices" name="pojServicePrices[]">
+                            type="text" placeholder="0.00" value="0.00" id="pojServicePrices" name="pojServicePrices[]">
                     </td>
                     <td class="serviceButton" data-button="${rowNumber}">
                         <button type="button" class="btn btn-warning btn-sm"
@@ -1103,6 +1124,7 @@ if (!empty($_POST['pojName'])) {
         flatpickr('#pojServiceDate', {
             dateFormat: 'd M, Y',
         })
+
     }
 
     var serviceStatus = null;
@@ -1198,20 +1220,20 @@ if (!empty($_POST['pojName'])) {
     }
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    function calculateTotalWatt() {
-        var pojWp = document.getElementById('pojWp').value; // รับค่ากำลังไฟต่อแผง
-        var pojPhaseQty = document.getElementById('pojPhaseQty').value; // รับค่าจำนวนแผง
-        var totalWatt = pojWp * pojPhaseQty / 1000; // คำนวณกำลังไฟรวมและแปลงเป็น kWp
+    document.addEventListener('DOMContentLoaded', function() {
+        function calculateTotalWatt() {
+            var pojWp = document.getElementById('pojWp').value; // รับค่ากำลังไฟต่อแผง
+            var pojPhaseQty = document.getElementById('pojPhaseQty').value; // รับค่าจำนวนแผง
+            var totalWatt = pojWp * pojPhaseQty / 1000; // คำนวณกำลังไฟรวมและแปลงเป็น kWp
 
-        // ตรวจสอบความถูกต้องของข้อมูลและแสดงผล
-        if(!isNaN(totalWatt)) {
-            document.getElementById('pojTotalWatt').value = totalWatt.toFixed(2); // แสดงผลลัพธ์ที่ pojTotalWatt
+            // ตรวจสอบความถูกต้องของข้อมูลและแสดงผล
+            if (!isNaN(totalWatt)) {
+                document.getElementById('pojTotalWatt').value = totalWatt.toFixed(2); // แสดงผลลัพธ์ที่ pojTotalWatt
+            }
         }
-    }
 
-    // เพิ่ม Event Listener สำหรับการเปลี่ยนแปลงค่า
-    document.getElementById('pojWp').addEventListener('input', calculateTotalWatt);
-    document.getElementById('pojPhaseQty').addEventListener('input', calculateTotalWatt);
-});
+        // เพิ่ม Event Listener สำหรับการเปลี่ยนแปลงค่า
+        document.getElementById('pojWp').addEventListener('input', calculateTotalWatt);
+        document.getElementById('pojPhaseQty').addEventListener('input', calculateTotalWatt);
+    });
 </script>

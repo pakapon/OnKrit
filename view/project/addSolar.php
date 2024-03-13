@@ -65,6 +65,9 @@ if (!empty($_POST['pojName'])) {
     $data->pojServicePrices = ($_POST["pojServicePrices"]);
     $data->pojServiceStatus = ($_POST["pojServiceStatus"]);
 
+    $data->pojContract = ($_POST["pojContract"]);
+    $data->pojContractTel = ($_POST["pojContractTel"]);
+
     $create = $prjService->createProject($data);
     $data = null;
 ?>
@@ -169,6 +172,18 @@ if (!empty($_POST['pojName'])) {
                                     </div>
                                     <div class="col-12 mt-5">
                                         <h5 class="fs-18 fw-bold ">รายละเอียดโครงการ</h5>
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        <div>
+                                            <label for="labelInput" class="form-label fs-15 text-dark">ชื่อผู้ติดต่อ</label>
+                                            <input type="text" class="form-control" id="pojContract" name="pojContract">
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6">
+                                        <div>
+                                            <label for="labelInput" class="form-label fs-15 text-dark">เบอร์ติดต่อ</label>
+                                            <input type="text" class="form-control" id="pojContractTel" name="pojContractTel">
+                                        </div>
                                     </div>
                                     <div class="col-xxl-7 col-md-6">
                                         <div>
@@ -620,6 +635,9 @@ if (!empty($_POST['pojName'])) {
                 dateFormat: 'd M, Y',
             })
         }
+
+        document.getElementById('pojProductWaranty').value = 0;
+        document.getElementById('pojProductQty').value = 0;
     }
 
     function addSubProductBodyInRow() {
@@ -771,7 +789,7 @@ if (!empty($_POST['pojName'])) {
         var range = formFileNo.split("-");
 
         var start = parseInt(range[0]);
-        
+
         var end = range.length > 1 ? parseInt(range[1]) : start;
 
         var result = [];
@@ -793,7 +811,7 @@ if (!empty($_POST['pojName'])) {
                     </th>
                     <td>
                         <input type="text" class="form-control1 form-control-sm fs-12 flatpickr-input" data-provider="flatpickr" value="12 Feb, 2024"
-                            data-date-format="d M, Y" readonly="readonly" placeholder="24-01-2024" id="pojServiceDate" name="pojServiceDate[]">
+                            data-date-format="d M, Y" readonly="readonly" placeholder="24-01-2024" value="01 Jan, 1999" id="pojServiceDate" name="pojServiceDate[]">
                     </td>
                     <td>
                         <input class="form-control1 form-control-sm fs-12" value="งานบริการ"
@@ -801,7 +819,7 @@ if (!empty($_POST['pojName'])) {
                     </td>
                     <td>
                         <input class="form-control1 form-control-sm fs-12" value="0"
-                            type="text" placeholder="0.00" id="pojServicePrices" name="pojServicePrices[]">
+                            type="text" placeholder="0.00" value="0.00" id="pojServicePrices" name="pojServicePrices[]">
                     </td>
                     <td class="serviceButton" data-button="${rowNumber}">
                         <button type="button" class="btn btn-warning btn-sm"

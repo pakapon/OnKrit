@@ -51,6 +51,9 @@ class ProjectService
 
                         `pojServiceCode` = :pojServiceCode,
 
+                        `pojContract` = :pojContract,
+                        `pojContractTel` = :pojContractTel,
+
                         `pojCreate` = now(),
                         `pojUpdate` = now()
         ";
@@ -98,6 +101,9 @@ class ProjectService
         $stmt->bindParam(':pojListSerial', $data->pojListSerial);
         $stmt->bindParam(':pojListStartWarranty', $data->pojListStartWarranty);
         $stmt->bindParam(':pojListEndWarranty', $data->pojListEndWarranty);
+
+        $stmt->bindParam(':pojContract', $data->pojContract);
+        $stmt->bindParam(':pojContractTel', $data->pojContractTel);
 
         $stmt->bindParam(':pojServiceCode', $code);
         $stmt->execute();
@@ -214,6 +220,9 @@ class ProjectService
                         `pojListStartWarranty` = :pojListStartWarranty,
                         `pojListEndWarranty` = :pojListEndWarranty,
 
+                        `pojContract` = :pojContract,
+                        `pojContractTel` = :pojContractTel,
+
                         `pojUpdate` = now()
                     WHERE
                         `pojID` = :pojID
@@ -262,6 +271,9 @@ class ProjectService
         $stmt->bindParam(':pojListSerial', $data->pojListSerial);
         $stmt->bindParam(':pojListStartWarranty', $data->pojListStartWarranty);
         $stmt->bindParam(':pojListEndWarranty', $data->pojListEndWarranty);
+
+        $stmt->bindParam(':pojContract', $data->pojContract);
+        $stmt->bindParam(':pojContractTel', $data->pojContractTel);
 
         $stmt->execute();
         $stmt = null;
