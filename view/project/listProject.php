@@ -100,10 +100,10 @@ $data = null;
                                                 <td><?= $pojFullAddr ?></td>
                                                 <td>เริ่ม : <?= $pojStartWarranty ?><br>ถึง : <?= $pojEndWarranty ?></td>
                                                 <td>
-                                                    <?= $pojDocStatus ?>
+                                                    <?= $pojStatus ?>
                                                 </td>
                                                 <td>
-                                                    <?= $pojStatus ?>
+                                                    <?= $pojDocStatus ?>
                                                 </td>
                                                 <td>
                                                     <!-- Buttons with Label -->
