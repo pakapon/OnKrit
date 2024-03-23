@@ -92,6 +92,7 @@ $result = null;
         }
     </style>
 </head>
+
 <body>
     <div class="row">
         <div class="col-lg-12">
@@ -239,19 +240,22 @@ $result = null;
                                 <td class="fs-13 text-end"><?= $counter ?> ครั้ง</td>
                             </tr>
                             <?php
-                            $n = 1;
-                            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                            if ($counter > 0) {
+                                $n = 1;
+                                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                             ?>
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td class="text-start">
-                                    </td>
-                                    <td class="fs-13 text-end">ครั้งที่ <?= $n ?> &nbsp; &nbsp; &nbsp;
-                                        &nbsp; <?= convertDBFormatToFulldate($row['pojServiceDate']) ?>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td class="text-start">
+                                        </td>
+                                        <td class="fs-13 text-end">ครั้งที่ <?= $n ?></td>
+                                        <td class="fs-13 text-end" min-width="200px">>
+                                            <?= convertDBFormatToFulldate($row['pojServiceDate']) ?>
+                                        </td>
+                                    </tr>
                             <?php
-                                $n++;
+                                    $n++;
+                                }
                             }
                             ?>
                             <tr>

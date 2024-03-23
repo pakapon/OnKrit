@@ -195,19 +195,21 @@ $result = null;
                                                     <td class="fs-13 text-end"><?= $counter ?> ครั้ง</td>
                                                 </tr>
                                                 <?php
-                                                $n = 1;
-                                                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                                                if ($counter > 0) { 
+                                                    $n = 1;
+                                                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                                                 ?>
-                                                    <tr>
-                                                        <th scope="row"></th>
-                                                        <td class="text-start">
-                                                        </td>
-                                                        <td class="fs-13 text-end">ครั้งที่ <?= $n ?> &nbsp; &nbsp; &nbsp;
-                                                            &nbsp; <?= convertDBFormatToFulldate($row['pojServiceDate']) ?>
-                                                        </td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td class="text-start">
+                                                            </td>
+                                                            <td class="fs-13 text-end">ครั้งที่ <?= $n ?></td>
+                                                            <td class="fs-13 text-end" min-width="200px">
+                                                                <?= convertDBFormatToFulldate($row['pojServiceDate']) ?>
+                                                            </td>
+                                                        </tr>
                                                 <?php
-                                                    $n++;
+                                                        $n++;
+                                                    }
                                                 }
                                                 ?>
                                                 <!-- <tr>
@@ -317,8 +319,8 @@ $result = null;
                             <!--end col-->
                         </div>
                         <!--end row-->
-                        <img src="./pdf/onkritPage2.jpg" alt="OnkritPage2" class="print-only" >
-                        <img src="./pdf/onkritPage1.jpg" alt="OnkritPage1" class="print-only" >
+                        <img src="./pdf/onkritPage2.jpg" alt="OnkritPage2" class="print-only">
+                        <img src="./pdf/onkritPage1.jpg" alt="OnkritPage1" class="print-only">
                     </div>
                     <!--end card-->
                 </div>

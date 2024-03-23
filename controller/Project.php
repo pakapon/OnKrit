@@ -444,7 +444,7 @@ if(empty($id)){
         }
 
         $query = " SELECT * FROM `$table_ps` a LEFT JOIN `$table_pj` b ON a.pojServiceCode = b.pojServiceCode
-                        $where $group ORDER BY `posID` DESC";
+                        $where $group ORDER BY `posID` ASC";
         // echo $query;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
